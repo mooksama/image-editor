@@ -21,6 +21,8 @@ import {
 import CropperImage from './CropperImage';
 import { GroupLayer, ImageLayer } from '@pages/editor/core/types/data';
 
+import { Intl } from '@language/index';
+
 export interface IProps {}
 
 function FlipXY(props: IProps) {
@@ -32,7 +34,7 @@ function FlipXY(props: IProps) {
     return null;
   }
   return (
-    <Item title="快捷操作">
+    <Item title={<Intl name="quick_actions" />}>
       {/* <div>边框，阴影，裁剪、图层、下移、上移、置顶、置底</div> */}
       <div className={styles.position}>
         {(elementData as any).type === 'image' && <CropperImage />}

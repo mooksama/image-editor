@@ -1,12 +1,14 @@
 import { enUS } from './enUS';
 import { storage, pubsub } from '@utils/index';
 import { zhCN } from './zhCN';
+import { koKR } from './koKR';
 
-export type ValueType = 'zh-CN' | 'en-US';
+export type ValueType = 'zh-CN' | 'en-US' | 'ko-KR';
 
 export const locals: any = {
   'zh-CN': zhCN,
   'en-US': enUS,
+  'ko-KR': koKR,
 };
 
 const _window = window as any;

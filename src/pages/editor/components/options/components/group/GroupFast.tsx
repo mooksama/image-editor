@@ -7,6 +7,7 @@ import { useReducer } from 'react';
 // import { util } from '@utils/index';
 // import { pubsub } from '@utils/pubsub';
 import { Lock, Unlock, Group, DeleteOne, PreviewOpen, Copy, PreviewCloseOne } from '@icon-park/react';
+import { Intl } from '@language/index';
 
 export interface IProps {}
 
@@ -15,7 +16,7 @@ function GroupFast(props: IProps) {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   return (
-    <Item title="快捷操作">
+    <Item title={<Intl name="quick_actions" />}>
       {/* <div>边框，阴影，裁剪、图层、下移、上移、置顶、置底</div> */}
       <div className={styles.position}>
         <Tooltip content="合并图层">
