@@ -104,7 +104,7 @@ export default function List(props: IProps) {
   }, []);
 
   useEffect(() => {
-    // 上传文件同步添加到云
+    // 업로드한 파일을 클라우드에 동기화 추가
     if (props.type === 'cloud') {
       pubsub.subscribe('addItemToCloudList', (_msg, item) => {
         setItems([item, ...(items || [])]);
@@ -118,7 +118,7 @@ export default function List(props: IProps) {
     };
   }, [items]);
 
-  // 显示上传中的信息
+  // 업로드 중인 정보 표시
   const uploadList = Object.values(cacheInfoData.current)
     .map(d => {
       return {
@@ -145,19 +145,19 @@ export default function List(props: IProps) {
     <>
       {checkboxs.length !== 0 && (
         <div className={styles.checkboxBtns}>
-          <span>选中: {checkboxs.length}个</span>
+          <span>선택: {checkboxs.length}개</span>
           <Space>
             <Button
               icon={<DeleteFive theme="filled" size="14" fill="var(--semi-color-danger)" />}
               onClick={() => {
                 Modal.confirm({
-                  title: '确定要删除这些素材？',
-                  content: '删除后无法恢复，请谨慎操作',
+                  title: '이 소재들을 삭제하시겠습니까?',
+                  content: '삭제 후 복구할 수 없습니다. 신중히 작업해주세요',
                   onOk: async () => {
-                    // 确认删除
+                    // 삭제 확인
                     const [res, err] = await server.deleteMaterial([...checkboxs]);
                     if (!err) {
-                      Toast.success('删除成功！');
+                      Toast.success('삭제 완료!');
                       setItems(
                         items.filter(d => {
                           return !checkboxs.includes(d.id);
@@ -170,7 +170,7 @@ export default function List(props: IProps) {
               }}
               type="danger"
             >
-              删除
+              삭제
             </Button>
             <Button
               icon={<Close theme="filled" size="14" fill="var(--semi-color-primary)" />}
@@ -178,7 +178,7 @@ export default function List(props: IProps) {
                 setCheckboxs([]);
               }}
             >
-              取消
+              취소
             </Button>
           </Space>
         </div>
@@ -205,7 +205,7 @@ export default function List(props: IProps) {
               }}
               beforeUpload={async v => {
                 if (!user.info) {
-                  Toast.warning('请先登录');
+                  Toast.warning('먼저 로그인해주세요');
                   return {
                     shouldUpload: false,
                     status: 'error',
@@ -222,7 +222,7 @@ export default function List(props: IProps) {
                   size: v.file.fileInstance.size,
                   name: v.file.name,
                 };
-                // 获取blob url
+                // blob url 가져오기
                 getUploadBeforeData(
                   v.file.url,
                   util.getFileTypeByURL('', v.file.name.split('.')[1]),
@@ -230,15 +230,15 @@ export default function List(props: IProps) {
                 )
                   .then(info => {
                     return Object.assign(cacheInfoData.current[v.file.name], {
-                      fileInfoSuccess: true, // 表示文件预处理数据获取成功
+                      fileInfoSuccess: true, // 파일 전처리 데이터 가져오기 성공을 의미
                       ...info,
                     });
                   })
                   .catch(err => {
-                    console.error('截帧异常丢给后端处理', err);
-                    // 异常丢给后端处理
+                    console.error('프레임 추출 오류는 백엔드에서 처리', err);
+                    // 오류는 백엔드에서 처리
                     Object.assign(cacheInfoData.current[v.file.name], {
-                      fileInfoSuccess: true, // 表示文件预处理数据获取成功
+                      fileInfoSuccess: true, // 파일 전처리 데이터 가져오기 성공을 의미
                     });
                   });
                 Object.assign(cacheInfoData.current[v.file.name], {
@@ -266,13 +266,13 @@ export default function List(props: IProps) {
                 cacheInfoData.current[file.name].status = 'decoding';
                 forceUpdate();
 
-                // 可能在转码中，需要等待
-                // 等待
+                // 변환 중일 수 있으므로 대기 필요
+                // 대기
                 while (!cacheInfoData.current[file.name].fileInfoSuccess) {
-                  console.log('等待截取帧');
+                  console.log('프레임 추출 대기 중');
                   await util.sleep(1000);
                 }
-                console.log('截帧完成!');
+                console.log('프레임 추출 완료!');
 
                 const { name, thumb, progress, id, status, ...other } = cacheInfoData.current[file.name];
                 const attrs = {};
@@ -282,7 +282,7 @@ export default function List(props: IProps) {
                   }
                 }
                 const url = res.data.storage_path;
-                // 保存到素材库
+                // 소재 라이브러리에 저장
                 const [item, err] = await server.createUserMaterial({
                   app_id: editor.appid,
                   name: name,
@@ -307,12 +307,12 @@ export default function List(props: IProps) {
                 block
                 icon={<UploadIcon theme="outline" size="20" fill="#FFF" />}
               >
-                上传素材
+                소재 업로드
               </Button>
             </Upload>
           ) : (
             <Select
-              defaultValue="根目录"
+              defaultValue="루트 폴더"
               onChange={v => {
                 Object.assign(params.current, {
                   page: 1,
@@ -325,7 +325,7 @@ export default function List(props: IProps) {
               }}
               style={{ width: '100%' }}
             >
-              <Select.Option value={0}>根目录</Select.Option>
+              <Select.Option value={0}>루트 폴더</Select.Option>
               {cates.map(d => {
                 return (
                   <Select.Option key={d.id} value={d.id}>
@@ -343,7 +343,7 @@ export default function List(props: IProps) {
             <Empty
               image={<IllustrationNoContent style={{ width: 150, height: 150 }} />}
               darkModeImage={<IllustrationNoContentDark style={{ width: 150, height: 150 }} />}
-              description={<div className={styles.loginTip}>该项目暂无素材，请先上传</div>}
+              description={<div className={styles.loginTip}>이 프로젝트에는 소재가 없습니다. 먼저 업로드해주세요</div>}
               style={{ padding: 30 }}
             />
           </div>
@@ -378,12 +378,12 @@ export default function List(props: IProps) {
                 <>
                   {d.progress !== undefined && (
                     <span className={styles.progress}>
-                      {d.status === 'ready' && <span className={styles.tips}>上传准备</span>}
+                      {d.status === 'ready' && <span className={styles.tips}>업로드 준비</span>}
                       {['uploadStart', 'uploading', 'decoding'].includes(d.status) && (
                         <Progress percent={d.progress} strokeWidth={2} showInfo type="circle" width={50} />
                       )}
-                      {/* {d.status === 'decoding' && <span className={styles.tips}>编码中</span>} */}
-                      {d.status === 'uploaded' && <span className={styles.tips}>上传完成</span>}
+                      {/* {d.status === 'decoding' && <span className={styles.tips}>인코딩 중</span>} */}
+                      {d.status === 'uploaded' && <span className={styles.tips}>업로드 완료</span>}
                     </span>
                   )}
                   {d.status !== 'ready' && d.type === 'audio' ? (
