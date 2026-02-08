@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spin, Empty } from '@douyinfe/semi-ui';
 /**
- * data === null 表示 loading 状态
+ * data === null 은 loading 상태를 나타냄
  * @param {props}
  * @returns
  */
@@ -16,16 +16,16 @@ interface ListStatusProps {
 export default function ListStatus({ data, loading, empty, error, children }: ListStatusProps): JSX.Element {
   if (!loading) {
     loading = (
-      <Spin size="large" tip="loading...">
+      <Spin size="large" tip="로딩 중...">
         {children}
       </Spin>
     );
   }
   if (!empty) {
-    empty = <Empty description="无数据" />;
+    empty = <Empty description="데이터 없음" />;
   }
   if (!error) {
-    error = <Empty description="加载失败" />;
+    error = <Empty description="로드 실패" />;
   }
   if (data === null) {
     return loading;

@@ -24,23 +24,23 @@ function Menus(props: IProps) {
   const staticNavs: NavItem[] = [
     {
       id: 'basic',
-      name: '基础',
+      name: '기본',
     },
     {
       id: 'audio',
-      name: '音频',
+      name: '오디오',
     },
     {
       id: 'speed',
-      name: '变速',
+      name: '속도',
     },
     {
       id: 'animation',
-      name: '动画',
+      name: '애니메이션',
     },
     {
       id: 'colour',
-      name: '调节',
+      name: '조정',
     },
   ];
 
@@ -63,7 +63,7 @@ function Menus(props: IProps) {
       navTypes = ['basic'];
       break;
     default:
-      return <div style={{ color: '#ccc', padding: 10 }}>未配置:{element.type}组件</div>;
+      return <div style={{ color: '#ccc', padding: 10 }}>미구성:{element.type}컴포넌트</div>;
   }
   const navs: NavItem[] = staticNavs.filter(d => navTypes.includes(d.id));
 

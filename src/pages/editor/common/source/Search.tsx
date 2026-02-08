@@ -29,7 +29,7 @@ export default function Search(props: IProps) {
     category_id: '',
   });
 
-  // 获取素材
+  // 소재 가져오기
   const getMaterialList = useCallback(async () => {
     const { list, hasMore } = await getItems(type, params.current, [], props.getListServer);
     setItems(list);
@@ -54,7 +54,7 @@ export default function Search(props: IProps) {
               console.log(e.target.value, 'aaa');
               setVal(e.target.value);
             }}
-            placeholder="搜索"
+            placeholder="검색"
             suffix={<IconSearch size={18} style={{ marginRight: 5 }} />}
             showClear
           />

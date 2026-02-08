@@ -74,7 +74,7 @@ function ContextMenu(props: IProps) {
         break;
       case 'group':
         {
-          // 数据合并
+        // 데이터 병합
           const g = editor.store.groupData([...editor.selectedElementIds]);
           editor.setSelectedElementIds([g.id]);
           editor.store.emitControl([g.id]);
@@ -87,7 +87,7 @@ function ContextMenu(props: IProps) {
         {
           editor.copyTempData = null;
           (window as any).clipboardData = null;
-          Toast.info('清理成功');
+          Toast.info('정리 완료');
         }
         break;
       //etc...
@@ -99,7 +99,7 @@ function ContextMenu(props: IProps) {
   if (editor.selectedElementIds.length > 1) {
     group = {
       id: 'group',
-      name: '组合',
+      name: '그룹',
       extra: 'Ctrl + G',
     };
   } else {
@@ -107,7 +107,7 @@ function ContextMenu(props: IProps) {
     if (layer && layer.type === 'group') {
       ungroup = {
         id: 'ungroup',
-        name: '解除组合',
+        name: '그룹 해제',
         extra: 'Ctrl + Shift + G',
       };
     }
@@ -116,22 +116,22 @@ function ContextMenu(props: IProps) {
   const menus = [
     {
       id: 'up1',
-      name: '上移一层',
+      name: '한 층 위로',
       extra: 'Ctrl + ]',
     },
     {
       id: 'down1',
-      name: '下移一层',
+      name: '한 층 아래로',
       extra: 'Ctrl + [',
     },
     {
       id: 'moveTop',
-      name: '移到顶层',
+      name: '맨 위로',
       extra: 'Ctrl + Shift + ]',
     },
     {
       id: 'moveBottom',
-      name: '移到底层',
+      name: '맨 아래로',
       extra: 'Ctrl + Shift + [',
     },
     {
@@ -142,32 +142,32 @@ function ContextMenu(props: IProps) {
     ungroup,
     {
       id: 'cut',
-      name: '剪切',
+      name: '잘라내기',
       extra: 'Ctrl + X',
     },
     {
       id: 'copy',
-      name: '复制',
+      name: '복사',
       extra: 'Ctrl + C',
     },
     // {
     //   id: 'paste',
-    //   name: '粘贴',
+    //   name: '붙여넣기',
     //   extra: 'Ctrl + V',
     // },
     {
       id: 'lock',
-      name: '锁定/解锁',
+      name: '잠금/해제',
       extra: '',
     },
     {
       id: 'hide',
-      name: '可见/隐藏',
+      name: '표시/숨김',
       extra: '',
     },
     {
       id: 'clearCopyTempData',
-      name: '清理剪切板',
+      name: '클립보드 정리',
     },
   ].filter(d => d);
 
