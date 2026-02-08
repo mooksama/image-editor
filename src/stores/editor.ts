@@ -80,7 +80,7 @@ class Editor {
   @observable themeUpdateKey: 'dark' | 'light' = theme.getTheme();
 
   // 多语言
-  @observable languageUpdateKey: 'zh-CN' | 'en-US' = language.getLanguage();
+  @observable languageUpdateKey: 'zh-CN' | 'en-US' | 'ko-KR' = language.getLanguage();
 
   // 历史记录测试用
   @observable recordUpdateTestKey: number = 1;

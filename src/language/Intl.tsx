@@ -20,7 +20,7 @@ function Intl(props: IProps): JSX.Element {
   const _window = window as any;
 
   if (!_window.language) {
-    _window.language = storage.local.get('language') || 'zh-CN';
+    _window.language = storage.local.get('language') || 'ko-KR';
   }
   if (!locals[_window.language][name]) {
     console.error('name', name);
