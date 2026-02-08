@@ -17,6 +17,7 @@ import {
   ZoomOut,
   LinkCloudSucess,
 } from '@icon-park/react';
+import { Intl } from '@language/index';
 
 export interface IProps {}
 
@@ -51,139 +52,139 @@ export default function KeyboardModal(props: IProps) {
 
   const items = [
     {
-      name: '复制',
+      name: 'copy',
       win: 'Ctrl + C',
       mac: '⌘ + C',
       icon: <Copy theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '剪切',
+      name: 'cut',
       win: 'Ctrl + X',
       mac: '⌘ + X',
       icon: <Clipboard theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '粘贴',
+      name: 'paste',
       win: 'Ctrl + V',
       mac: '⌘ + V',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '全选',
+      name: 'select_all',
       win: 'Ctrl + A',
       mac: '⌘ + A',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '取消选择',
+      name: 'deselect',
       win: 'Ctrl + D',
       mac: '⌘ + D',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '上移一层',
+      name: 'move_up_layer',
       win: 'Ctrl + ]',
       mac: '⌘ + ]',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '下移一层',
+      name: 'move_down_layer',
       win: 'Ctrl + [',
       mac: '⌘ + [',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '移到顶层',
+      name: 'move_to_top',
       win: 'Ctrl + Shift + ]',
       mac: '⌘ + Shift + ]',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '移到底层',
+      name: 'move_to_bottom',
       win: 'Ctrl + Shift + [',
       mac: '⌘ + Shift + [',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '删除',
+      name: 'delete',
       win: 'Delete/Backspace',
       mac: 'Delete/Backspace',
       icon: <Delete theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '撤销',
+      name: 'undo',
       win: 'Ctrl + Z',
       mac: '⌘ + Z',
       icon: <Return theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '重做',
+      name: 'redo',
       win: 'Ctrl + Shift + Z',
       mac: '⌘ + Shift + Z',
       icon: <Return style={{ transform: `scaleX(-1)` }} theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '右移1px',
+      name: 'move_right_1px',
       win: '→',
       mac: '→',
       icon: <ArrowCircleRight theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '左移1px',
+      name: 'move_left_1px',
       win: '←',
       mac: '←',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '上移1px',
+      name: 'move_up_1px',
       win: '↑',
       mac: '↑',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '下移1px',
+      name: 'move_down_1px',
       win: '↓',
       mac: '↓',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '左移10px',
+      name: 'move_left_10px',
       win: 'Shift + ←',
       mac: 'Shift + ←',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '上移10px',
+      name: 'move_up_10px',
       win: 'Shift + ↑',
       mac: 'Shift + ↑',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '下移10px',
+      name: 'move_down_10px',
       win: 'Shift + ↓',
       mac: 'Shift + ↓',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '画布放大',
+      name: 'canvas_zoom_in',
       win: 'Ctrl + +',
       mac: '⌘ + +',
       icon: <ZoomIn theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '画布缩小',
+      name: 'canvas_zoom_out',
       win: 'Ctrl + -',
       mac: '⌘ + -',
       icon: <ZoomOut theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '画布调至最佳尺寸',
+      name: 'canvas_fit',
       win: 'Ctrl + 0',
       mac: '⌘ + 0',
       icon: <ZoomOut theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '保存',
+      name: 'save',
       win: 'Ctrl + S',
       mac: '⌘ + S',
       icon: <LinkCloudSucess theme="outline" size="20" fill="var(--theme-icon)" />,
@@ -213,7 +214,7 @@ export default function KeyboardModal(props: IProps) {
                 <section key={d.name}>
                   <span className={styles.name}>
                     {d.icon}
-                    {d.name}
+                    <Intl name={d.name} />
                   </span>
                   <span className={styles.tip}>{d[type]}</span>
                 </section>
@@ -227,7 +228,7 @@ export default function KeyboardModal(props: IProps) {
                 <section key={d.name}>
                   <span className={styles.name}>
                     {d.icon}
-                    {d.name}
+                    <Intl name={d.name} />
                   </span>
                   <span className={styles.tip}>{d[type]}</span>
                 </section>

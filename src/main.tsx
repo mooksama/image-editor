@@ -7,6 +7,7 @@ import { stores } from './stores';
 import { BrowserRouter } from 'react-router-dom'; // 路由
 import { routes } from './routes.config';
 import { isChromeVersionGreaterThan } from '@utils/checkWeb';
+import { Intl } from '@language/index';
 
 // 如果不是新版本谷歌浏览器，直接让其下载
 // if (!isChromeVersionGreaterThan(98)) {
@@ -40,9 +41,9 @@ import { isChromeVersionGreaterThan } from '@utils/checkWeb';
 //           ></path>
 //         </svg>
 //       </span>
-//       <h1>各位义父</h1>
-//       <p>为了更好的体验，请使用最新版的谷歌浏览器</p>
-//       <a href="https://www.google.cn/intl/zh-CN/chrome/">下载 Chrome</a>
+//       <h1><Intl name="dear_users" /></h1>
+//       <p><Intl name="chrome_upgrade_message" /></p>
+//       <a href="https://www.google.cn/intl/zh-CN/chrome/"><Intl name="download_chrome" /></a>
 //     </div>,
 //   );
 // } else {

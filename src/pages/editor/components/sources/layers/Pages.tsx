@@ -10,6 +10,7 @@ import { Button, Popover, Toast } from '@douyinfe/semi-ui';
 import { More } from '@icon-park/react';
 import remove from 'lodash/remove';
 import { config } from '@config/index';
+import { Intl } from '@language/index';
 
 export interface IProps {}
 
@@ -48,7 +49,7 @@ function Pages(props: IProps) {
             });
           }}
         >
-          新建页面
+          <Intl name="new_page" />
         </Button>
       </div>
       <WaterFull
@@ -87,7 +88,7 @@ function Pages(props: IProps) {
                           editor.selectPageId = nPage.id;
                         }}
                       >
-                        复制
+                        <Intl name="copy" />
                       </li>
                       <li
                         onClick={e => {
@@ -103,7 +104,7 @@ function Pages(props: IProps) {
                           });
                         }}
                       >
-                        删除
+                        <Intl name="delete" />
                       </li>
                     </ul>
                   }

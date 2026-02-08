@@ -24,7 +24,7 @@ function User(props: IProps) {
         <span className={styles.right}>
           <h3>{info.nick_name}</h3>
           <p>
-            <em>用户ID: </em>
+            <em><Intl name="user_id" />: </em>
             {info.id}
           </p>
         </span>
@@ -36,18 +36,18 @@ function User(props: IProps) {
       >
         <VipOne theme="filled" size="35" fill={vip_status === 0 ? '#cecece' : '#FF9431'} />
         <span className={styles.right}>
-          <h3>VIP用户</h3>
+          <h3><Intl name="vip_user" /></h3>
           <p>
             {vip_status === 1 && (
               <>
                 <span>
-                  <em>到期时间: </em>
+                  <em><Intl name="expiry_time" />: </em>
                   {info.vip_expire}
                 </span>
-                <a href="#">续费</a>
+                <a href="#"><Intl name="renew" /></a>
               </>
             )}
-            {vip_status === 0 && <a href="#">开通会员{'>'}</a>}
+            {vip_status === 0 && <a href="#"><Intl name="activate_membership" />{'>'}</a>}
           </p>
         </span>
       </div>
@@ -114,7 +114,7 @@ function User(props: IProps) {
                 <Intl name="user_theme" />
               </span>
             </span>
-            <span className={styles.right}>{theme.getTheme() === 'dark' ? '黑色主题' : '浅色主题'}</span>
+            <span className={styles.right}>{theme.getTheme() === 'dark' ? <Intl name="dark_theme" /> : <Intl name="light_theme" />}</span>
           </li>
           <li>
             <span
