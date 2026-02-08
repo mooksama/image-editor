@@ -17,7 +17,7 @@ const _window = window as any;
  */
 class Language {
   constructor() {
-    _window.language = storage.local.get('language') || 'zh-CN';
+    _window.language = storage.local.get('language') || 'ko-KR';
     storage.local.set('language', _window.language);
   }
 
@@ -37,7 +37,7 @@ class Language {
    */
   val(name: string, data?: any, type?: ValueType) {
     if (!_window.language) {
-      _window.language = storage.local.get('language') || 'zh-CN';
+      _window.language = storage.local.get('language') || 'ko-KR';
     }
     let str = locals[type || _window.language][name] || 'not found';
     if (data) {
@@ -53,9 +53,9 @@ class Language {
    * @param {string} value 当前的值
    * @param {string} type 当前的值属于那个语言类型
    */
-  findVal(value: string, valueType = 'zh-CN') {
+  findVal(value: string, valueType = 'ko-KR') {
     if (!_window.language) {
-      _window.language = storage.local.get('language') || 'zh-CN';
+      _window.language = storage.local.get('language') || 'ko-KR';
     }
     for (const key in locals[valueType]) {
       if (locals[valueType][key] === value) {
@@ -66,7 +66,7 @@ class Language {
   }
 
   getLanguage(): ValueType {
-    return _window.language || storage.local.get('language') || 'zh-CN';
+    return _window.language || storage.local.get('language') || 'ko-KR';
   }
 
   setLanguage(type: ValueType) {
