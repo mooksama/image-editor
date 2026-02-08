@@ -28,37 +28,37 @@ function SideBar(props: ISideBarProps) {
             {
               icon: <Page theme="outline" size="24" fill={fill} />,
               type: 'template',
-              name: '模版',
+              name: '템플릿',
             },
             {
               icon: <UploadOne theme="outline" size="24" fill={fill} />,
               type: 'my',
-              name: '我的',
+              name: '내 작업',
             },
             {
               icon: <PictureOne theme="outline" size="24" fill={fill} />,
               type: 'image',
-              name: '图片',
+              name: '이미지',
             },
             {
               icon: <Text theme="outline" size="24" fill={fill} />,
               type: 'text',
-              name: '文本',
+              name: '텍스트',
             },
             {
               icon: <Mosaic theme="outline" size="24" fill={fill} />,
               type: 'background',
-              name: '背景',
+              name: '배경',
             },
             {
               icon: <Stickers theme="outline" size="24" fill={fill} />,
               type: 'svg',
-              name: '贴纸',
+              name: '스티커',
             },
             {
               icon: <MoreTwo theme="outline" size="24" fill={fill} />,
               type: 'more',
-              name: '更多',
+              name: '더보기',
             },
           ].map((d, i) => {
             return (

@@ -33,7 +33,7 @@ function Header(props: IProps) {
       editor.recordUpdateTestKey = +new Date();
       editor.updateComponent('options');
     } else {
-      Toast.error('已经撤销到最初状态');
+      Toast.error('이미 초기 상태로 되돌렸습니다');
     }
   };
 
@@ -44,7 +44,7 @@ function Header(props: IProps) {
       editor.recordUpdateTestKey = +new Date();
       editor.updateComponent('options');
     } else {
-      Toast.error('已经恢复到最终状态');
+      Toast.error('이미 최종 상태로 복구했습니다');
     }
   };
 
@@ -53,14 +53,14 @@ function Header(props: IProps) {
 
     if (!user.info && !noToast) {
       // pubsub.publish('showLoginModal');
-      Toast.error('请先登录');
+      Toast.error('먼저 로그인해주세요');
       return;
     }
     const ndataStr = JSON.stringify(editor.data);
     const ndata = util.toJS(editor.data) as ViewData;
 
     if (editor.lastUpdateAppData === ndataStr) {
-      console.log('数据未变，不用更新');
+      console.log('데이터 변경 없음, 업데이트 불필요');
       return;
     }
 
@@ -69,7 +69,7 @@ function Header(props: IProps) {
       // scale: util.toNum(160 / editor.pageData.height, 2),
     });
 
-    // 缩小图片
+    // 이미지 축소
     const minBase = await util.scaleBase64(res.data, util.toNum(160 / editor.pageData.height, 2));
 
     console.log('res', res);
@@ -79,17 +79,17 @@ function Header(props: IProps) {
     });
     console.log('xxx', ires.storage_path);
 
-    // 更新页面
+    // 페이지 업데이트
     editor.pageData.thumb = ires.storage_path;
 
     editor.lastUpdateAppData = ndataStr;
-    // 如果保存的时候没有appid先创建
+    // 저장 시 appid가 없으면 먼저 생성
     if (!editor.appid) {
       const [res, err] = await server.createApp({
         source_id: '', //来源Id
         category_id: 0, //分类Id
-        name: ndata.name || '未命名', //名称
-        description: ndata.desc || '未命名', //描述
+        name: ndata.name || '제목 없음', //이름
+        description: ndata.desc || '제목 없음', //설명
         width: ndata.pages[0].width, //宽度
         height: ndata.pages[0].height, //高度
         thumb: ires.storage_path, //封面图url
@@ -99,7 +99,7 @@ function Header(props: IProps) {
         return Toast.error(err);
       }
       editor.appid = res.id;
-      // 设置url
+      // URL 설정
       window.history.pushState(null, null, '/editor/' + res.id);
     } else {
       const [res, err] = await server.updateApp({
@@ -128,7 +128,7 @@ function Header(props: IProps) {
     pubsub.subscribe('keyboardUndo', undo);
     pubsub.subscribe('keyboardRedo', redo);
 
-    // 每隔30秒自动保存
+    // 30초마다 자동 저장
     const timer = setInterval(() => {
       saveApp(undefined, true);
     }, 1000 * 30);
@@ -145,22 +145,22 @@ function Header(props: IProps) {
     <>
       <div className={styles.header}>
         <section className={styles.left}>
-          <Tooltip content="工程列表">
+          <Tooltip content="프로젝트 목록">
             <a onClick={() => editor.setSourceType('projects')}>
               <FolderCodeOne theme="outline" size="20" fill="var(--theme-icon)" />
             </a>
           </Tooltip>
-          <Tooltip content="多页面">
+          <Tooltip content="다중 페이지">
             <a onClick={() => editor.setSourceType('pages')}>
               <ViewList theme="outline" size="20" fill="var(--theme-icon)" />
             </a>
           </Tooltip>
-          <Tooltip content="图层列表">
+          <Tooltip content="레이어 목록">
             <a onClick={() => editor.setSourceType('layers')}>
               <Layers theme="outline" size="20" fill="var(--theme-icon)" />
             </a>
           </Tooltip>
-          <Tooltip content="保存">
+          <Tooltip content="저장">
             <a style={{ pointerEvents: saveLoading ? 'none' : 'initial' }} onClick={() => saveApp()}>
               {saveLoading ? (
                 <LoadingFour className={styles.loadingAnimate} theme="outline" size="20" fill="var(--theme-icon)" />
@@ -169,18 +169,18 @@ function Header(props: IProps) {
               )}
             </a>
           </Tooltip>
-          <Tooltip content="撤销">
+          <Tooltip content="되돌리기">
             <a onClick={undo}>
               <Return theme="outline" size="20" fill="var(--theme-icon)" />
             </a>
           </Tooltip>
-          <Tooltip content="重做">
+          <Tooltip content="다시 실행">
             <a onClick={redo}>
               <Return style={{ transform: `scaleX(-1)` }} theme="outline" size="20" fill="var(--theme-icon)" />
             </a>
           </Tooltip>
           <input
-            placeholder="项目未命名"
+            placeholder="프로젝트 제목 없음"
             className={styles.title}
             type="text"
             value={editor.data.name}
@@ -250,7 +250,7 @@ function Header(props: IProps) {
           ) : (
             <Login>
               <Button theme="solid" className={styles.login}>
-                登录/注册
+                로그인/가입
               </Button>
             </Login>
           )}

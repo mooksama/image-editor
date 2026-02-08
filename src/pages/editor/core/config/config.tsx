@@ -3,7 +3,7 @@ import React from 'react';
 
 export const pageSize: PageSizeType[] = [
   {
-    name: '手机海报',
+    name: '모바일 세로',
     width: 1242,
     height: 2208,
     icon: null,
@@ -11,7 +11,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '横版海报',
+    name: 'PC 가로',
     width: 900,
     height: 500,
     icon: null,
@@ -19,7 +19,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '公众号首图',
+    name: '공식 계정 이미지',
     width: 900,
     height: 383,
     icon: null,
@@ -27,7 +27,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '公众号次图',
+    name: '공식 계정 보조 이미지',
     width: 500,
     height: 500,
     icon: null,
@@ -35,7 +35,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '小红书配图',
+    name: '샤오홍슈 세로',
     width: 1242,
     height: 1660,
     icon: null,
@@ -43,7 +43,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '文章长图',
+    name: '긴 이미지',
     width: 1000,
     height: 1500,
     icon: null,
@@ -51,7 +51,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: 'PPT（16:9）',
+    name: 'PPT (16:9)',
     width: 1242,
     height: 2208,
     icon: null,
@@ -59,7 +59,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '竖版直播背景',
+    name: '세로 라이브 배경',
     width: 1242,
     height: 2690,
     icon: null,
@@ -67,7 +67,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '竖版视频封面',
+    name: 'PC 세로 커버',
     width: 1242,
     height: 2208,
     icon: null,
@@ -75,7 +75,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '横版视频封面',
+    name: '가로 비디오 커버',
     width: 1920,
     height: 1080,
     icon: null,
@@ -83,7 +83,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '商品主图',
+    name: '상품 메인 이미지',
     width: 800,
     height: 800,
     icon: null,
@@ -91,7 +91,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '电商详情页',
+    name: '전자상거래 상세 페이지',
     width: 750,
     height: 1000,
     icon: null,
@@ -99,7 +99,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: 'PC端店铺首页',
+    name: 'PC 상점 홈',
     width: 1920,
     height: 1500,
     icon: null,
@@ -107,7 +107,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '手机店铺首页',
+    name: '모바일 상점 홈',
     width: 750,
     height: 1000,
     icon: null,
@@ -115,7 +115,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '店招',
+    name: '상점 간판',
     width: 1920,
     height: 150,
     icon: null,
@@ -123,7 +123,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '电商横版海报',
+    name: '전자상거래 가로 포스터',
     width: 750,
     height: 390,
     icon: null,
@@ -131,7 +131,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '电商竖版海报',
+    name: '전자상거래 세로 포스터',
     width: 750,
     height: 950,
     icon: null,
@@ -139,7 +139,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '电商全屏海报',
+    name: '전자상거래 전체 화면 포스터',
     width: 1920,
     height: 700,
     icon: null,
@@ -147,7 +147,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '日签',
+    name: '일일 서명',
     width: 1242,
     height: 2208,
     icon: null,
@@ -155,7 +155,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '小程序封面',
+    name: '미니 프로그램 커버',
     width: 520,
     height: 416,
     icon: null,
@@ -163,7 +163,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'px',
   },
   {
-    name: '名片',
+    name: '명함',
     width: 96,
     height: 60,
     icon: null,
@@ -171,7 +171,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'mm',
   },
   {
-    name: '张贴海报',
+    name: '부착 포스터',
     width: 426,
     height: 576,
     icon: null,
@@ -179,7 +179,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'mm',
   },
   {
-    name: '2m易拉宝',
+    name: '2m 롤업 배너',
     width: 80,
     height: 200,
     icon: null,
@@ -187,7 +187,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'cm',
   },
   {
-    name: '1.8m展架',
+    name: '1.8m 전시 스탠드',
     width: 80,
     height: 180,
     icon: null,
@@ -195,7 +195,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'cm',
   },
   {
-    name: '优惠券',
+    name: '쿠폰',
     width: 186,
     height: 66,
     icon: null,
@@ -203,7 +203,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'mm',
   },
   {
-    name: '门票',
+    name: '티켓',
     width: 206,
     height: 86,
     icon: null,
@@ -211,7 +211,7 @@ export const pageSize: PageSizeType[] = [
     unit: 'mm',
   },
   {
-    name: '证件照',
+    name: '증명사진',
     width: 25,
     height: 35,
     icon: null,
