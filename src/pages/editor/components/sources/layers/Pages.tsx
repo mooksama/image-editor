@@ -31,7 +31,7 @@ function Pages(props: IProps) {
               const pid = util.createID();
               editor.data.pages.push({
                 id: pid,
-                name: '新建页面',
+                name: '새 페이지',
                 desc: '',
                 width: util.randomNum(720, 1920),
                 height: util.randomNum(720, 1920),
@@ -48,7 +48,7 @@ function Pages(props: IProps) {
             });
           }}
         >
-          新建页面
+          새 페이지
         </Button>
       </div>
       <WaterFull
@@ -87,7 +87,7 @@ function Pages(props: IProps) {
                           editor.selectPageId = nPage.id;
                         }}
                       >
-                        复制
+                        복사
                       </li>
                       <li
                         onClick={e => {
@@ -98,12 +98,12 @@ function Pages(props: IProps) {
                               editor.selectPageId = editor.data.pages[0].id;
                               editor.updateCanvasKey = util.createID();
                             } else {
-                              Toast.error('至少保留一个页面');
+                              Toast.error('최소한 하나의 페이지를 유지해야 합니다.');
                             }
                           });
                         }}
                       >
-                        删除
+                        삭제
                       </li>
                     </ul>
                   }

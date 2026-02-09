@@ -10,7 +10,7 @@ export default function SvgIcofont(props: IProps) {
   return (
     <div className={styles.iconfont}>
       <div className={styles.search}>
-        <Input placeholder="请输入要搜索的ICO名称" className={styles.input} value={keywords} onChange={setKeywords} />
+        <Input placeholder="ICO 이름을 입력하세요" className={styles.input} value={keywords} onChange={setKeywords} />
         <a
           className={styles.btn}
           href={`https://www.iconfont.cn/search/index?q=${encodeURIComponent(
@@ -18,15 +18,15 @@ export default function SvgIcofont(props: IProps) {
           )}&page=1&searchType=icon&fromCollection=-1`}
           target="_blank"
         >
-          搜索
+          검색
         </a>
       </div>
       <div className={styles.tips}>
-        <h3>使用教程</h3>
-        <p>1、进入iconfont进行图标搜索</p>
-        <p>2、选中图标，点击下载按钮</p>
-        <p>3、点击“复制SVG代码”</p>
-        <p>4、会到画布中点击Ctrl+V进行复制</p>
+        <h3>사용 방법</h3>
+        <p>1. iconfont에 들어가서 아이콘을 검색합니다</p>
+        <p>2. 아이콘을 선택하고 다운로드 버튼을 클릭합니다</p>
+        <p>3. "SVG 코드 복사"를 클릭합니다</p>
+        <p>4. 캔버스로 돌아가 Ctrl+V를 눌러 붙여넣기 합니다</p>
       </div>
     </div>
   );

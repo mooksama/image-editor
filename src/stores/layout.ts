@@ -13,11 +13,11 @@ class Layout {
   @observable themeUpdateKey: 'dark' | 'light' = theme.getTheme();
   @observable languageUpdateKey: number = 1;
 
-  // 多选
+  // 다중 선택
   @observable selects: SelectItem[] = [];
-  // 批量操作的开关
+  // 일괄 작업 스위치
   @observable openSelectManage: boolean = false;
-  // 取消
+  // 취소
   @action
   cancelSelected = () => {
     transaction(() => {
@@ -40,7 +40,7 @@ class Layout {
     });
   };
 
-  // 手动触发模块更新
+  // 수동으로 모듈 업데이트 트리거
   @action
   updateComponent = (...keyName: string[]) => {
     transaction(() => {

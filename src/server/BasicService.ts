@@ -56,7 +56,7 @@ export default class BasicService {
       server.abort(url);
       delete this.abortKeys[key];
     } else {
-      console.warn('abort必须传入key参数');
+      console.warn('abort는 key 매개변수를 전달해야 합니다');
     }
   }
 
@@ -65,7 +65,7 @@ export default class BasicService {
   }
 
   _request(method: Method, url: string, data: any, options: any = {}) {
-    // 设置abort参数
+    // abort 매개변수 설정
     if (options.abortID) {
       this.abortKeys[options.abortID] = url;
     }
@@ -88,16 +88,16 @@ export default class BasicService {
     return axios(opt)
       .then((res: any) => {
         res = res.data as Res;
-        // 成功后移除abort
+        // 성공 후 abort 제거
         server.remove(url);
         if (options.jsonFile) {
           return res.data;
         }
         if (res.code === 1001 || res.code === 1002) {
-          console.error('登录失效，请刷新页面重新登录');
+          console.error('로그인 만료, 페이지를 다시 로그인하세요');
           Toast.error(res.message);
           user.clearUserInfo();
-          return [null, '登录失效'];
+          return [null, '로그인 만료'];
         }
         if (res.error) {
           console.log('res.error', res.error);
@@ -111,8 +111,8 @@ export default class BasicService {
       })
       .catch(err => {
         if (err?.__CANCEL__) {
-          console.warn('请求已取消');
-          return Promise.reject('请求已取消');
+          console.warn('요청이 취소되었습니다');
+          return Promise.reject('요청이 취소되었습니다');
         }
         console.error('err', err);
         return Promise.reject(err);

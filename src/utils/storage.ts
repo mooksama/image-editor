@@ -10,7 +10,7 @@ function safeGet(data: any) {
 }
 
 /**
- * 如果key = 'x-token' 或者 'x-user-info' 需要加密和解密。
+ * key가 'x-token' 또는 'x-user-info'인 경우 암호화 및 복호화가 필요합니다.
  */
 class WebStorage {
   SECRET_KEY: string;

@@ -5,18 +5,18 @@ import Store from '../stores/Store';
 
 export default function useLayerBaseStyle(layer: BaseLayer, box: IUI, store: Store, zIndex: number) {
   useEffect(() => {
-    // x,y,width,height
+    // x, y, width, height
     box.x = layer.x;
     box.y = layer.y;
     box.opacity = layer.opacity;
 
-    // 模糊
+    // 흐림
     box.blur = layer.blur;
 
-    //混合模式
+    // 혼합 모드
     box.blendMode = layer.blendMode;
 
-    // 边框
+    // 테두리
     if (layer.type === 'image') {
       const imgUI = box.children[0];
       imgUI.stroke = layer.border.stroke;
@@ -28,7 +28,7 @@ export default function useLayerBaseStyle(layer: BaseLayer, box: IUI, store: Sto
       box.dashPattern = layer.border.dashPattern;
     }
 
-    // 旋转
+    // 회전
     box.rotation = layer.rotation;
     // box.rotateOf({ x: box.width / 2, y: box.height / 2 }, layer.rotation - box.rotation);
   }, [layer.x, layer.y, layer.opacity, layer.blendMode, layer.blur, layer.border, layer.rotation]);
@@ -37,7 +37,7 @@ export default function useLayerBaseStyle(layer: BaseLayer, box: IUI, store: Sto
     box.zIndex = zIndex;
   }, [zIndex]);
 
-  // 阴影
+  // 그림자
   useEffect(() => {
     if (layer.shadow && layer.shadow.visible) {
       if (['image', 'text'].includes(layer.type)) {

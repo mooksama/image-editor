@@ -12,7 +12,7 @@ import { MusicRhythm, Plus, Like } from '@icon-park/react';
 import { editor } from '@stores/index';
 import { addImageItem } from '../addItem';
 import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
-/* 以下为 1.13.0 版本后提供 */
+/* 이하 1.13.0 버전 이후 제공 */
 import { IllustrationNoContentDark } from '@douyinfe/semi-illustrations';
 import { config } from '@config/index';
 
@@ -24,20 +24,20 @@ export interface UploadItem {
   fileInfoSuccess?: boolean;
   id: string;
   status: 'ready' | 'uploadStart' | 'uploading' | 'decoding' | 'uploaded';
-  progress: number; // 当前进度
-  type?: string; // 文件类型
+  progress: number; // 현재 진행률
+  type?: string; // 파일 유형
   name?: string;
-  size?: number; // 文件大小
-  thumb?: string; // 缩图
-  naturalHeight?: number; // 图片真实尺寸
+  size?: number; // 파일 크기
+  thumb?: string; // 썸네일
+  naturalHeight?: number; // 이미지 실제 크기
   naturalWidth?: number;
-  duration?: number; // 时长
-  rotate?: boolean; // 视频是否旋转了
-  hasAudioTrack?: boolean; // 视频是否有声音
-  videoWidth?: number; // 视频真实尺寸
+  duration?: number; // 길이
+  rotate?: boolean; // 비디오가 회전되었는지 여부
+  hasAudioTrack?: boolean; // 비디오에 오디오 트랙이 있는지 여부
+  videoWidth?: number; // 비디오 실제 크기
   videoHeight?: number;
-  wave?: string; // 音波json数据
-  frames?: string; // 1s单位的帧图
+  wave?: string; // 음파 json 데이터
+  frames?: string; // 1초 단위의 프레임 이미지
 }
 
 export default function List(props: IProps) {
@@ -51,7 +51,7 @@ export default function List(props: IProps) {
   const uploadRef = useRef();
 
   const menu: any = [
-    // { node: 'item', name: '手机上传', onClick: () => console.log('编辑项目点击') },
+    // { node: 'item', name: '휴대폰 업로드', onClick: () => console.log('편집 항목 클릭') },
     {
       node: 'item',
       name: (
@@ -60,13 +60,13 @@ export default function List(props: IProps) {
             setRecordAudioVisible(true);
           }}
         >
-          在线录音
+          온라인 녹음
         </span>
       ),
     },
-    // { node: 'item', name: '文字转语音' },
+    // { node: 'item', name: '텍스트 음성 변환' },
   ];
-  // 缓存info数据
+  // 캐시 info 데이터
   const cacheInfoData = useRef<Record<string, UploadItem>>({});
   const params = useRef<any>({
     app_id: props.type === 'cloud' ? '' : editor.appid,
@@ -75,7 +75,7 @@ export default function List(props: IProps) {
     keyword: '',
     category_id: '',
   });
-  // 如果category_id变化了，需要重新设置items，而不是追加到瀑布流
+  // category_id가 변경되면 items를 다시 설정해야 하며, 무한 스크롤에 추가하지 않습니다.
   const categoryOldId = useRef('');
 
   const getList = useCallback(async () => {
@@ -104,7 +104,7 @@ export default function List(props: IProps) {
   }, []);
 
   useEffect(() => {
-    // 上传文件同步添加到云
+    // 파일 업로드가 클라우드에 동기화됩니다.
     if (props.type === 'cloud') {
       pubsub.subscribe('addItemToCloudList', (_msg, item) => {
         setItems([item, ...(items || [])]);
@@ -118,7 +118,7 @@ export default function List(props: IProps) {
     };
   }, [items]);
 
-  // 显示上传中的信息
+  // 업로드 중인 정보 표시
   const uploadList = Object.values(cacheInfoData.current)
     .map(d => {
       return {
@@ -145,19 +145,19 @@ export default function List(props: IProps) {
     <>
       {checkboxs.length !== 0 && (
         <div className={styles.checkboxBtns}>
-          <span>选中: {checkboxs.length}个</span>
+          <span>선택됨: {checkboxs.length}개</span>
           <Space>
             <Button
               icon={<DeleteFive theme="filled" size="14" fill="var(--semi-color-danger)" />}
               onClick={() => {
                 Modal.confirm({
-                  title: '确定要删除这些素材？',
-                  content: '删除后无法恢复，请谨慎操作',
+                  title: '이 자료를 삭제하시겠습니까?',
+                  content: '삭제 후 복구할 수 없습니다. 신중하게 작업하세요.',
                   onOk: async () => {
-                    // 确认删除
+                    // 삭제 확인
                     const [res, err] = await server.deleteMaterial([...checkboxs]);
                     if (!err) {
-                      Toast.success('删除成功！');
+                      Toast.success('삭제 성공!');
                       setItems(
                         items.filter(d => {
                           return !checkboxs.includes(d.id);
@@ -170,7 +170,7 @@ export default function List(props: IProps) {
               }}
               type="danger"
             >
-              删除
+              삭제
             </Button>
             <Button
               icon={<Close theme="filled" size="14" fill="var(--semi-color-primary)" />}
@@ -178,7 +178,7 @@ export default function List(props: IProps) {
                 setCheckboxs([]);
               }}
             >
-              取消
+              취소
             </Button>
           </Space>
         </div>
@@ -205,7 +205,7 @@ export default function List(props: IProps) {
               }}
               beforeUpload={async v => {
                 if (!user.info) {
-                  Toast.warning('请先登录');
+                  Toast.warning('로그인 해주세요');
                   return {
                     shouldUpload: false,
                     status: 'error',
@@ -222,7 +222,7 @@ export default function List(props: IProps) {
                   size: v.file.fileInstance.size,
                   name: v.file.name,
                 };
-                // 获取blob url
+                // blob url 가져오기
                 getUploadBeforeData(
                   v.file.url,
                   util.getFileTypeByURL('', v.file.name.split('.')[1]),
@@ -230,15 +230,15 @@ export default function List(props: IProps) {
                 )
                   .then(info => {
                     return Object.assign(cacheInfoData.current[v.file.name], {
-                      fileInfoSuccess: true, // 表示文件预处理数据获取成功
+                      fileInfoSuccess: true, // 파일 사전 처리 데이터 가져오기 성공
                       ...info,
                     });
                   })
                   .catch(err => {
-                    console.error('截帧异常丢给后端处理', err);
-                    // 异常丢给后端处理
+                    console.error('프레임 캡처 예외는 백엔드로 처리', err);
+                    // 예외는 백엔드로 처리
                     Object.assign(cacheInfoData.current[v.file.name], {
-                      fileInfoSuccess: true, // 表示文件预处理数据获取成功
+                      fileInfoSuccess: true, // 파일 사전 처리 데이터 가져오기 성공
                     });
                   });
                 Object.assign(cacheInfoData.current[v.file.name], {
@@ -266,13 +266,13 @@ export default function List(props: IProps) {
                 cacheInfoData.current[file.name].status = 'decoding';
                 forceUpdate();
 
-                // 可能在转码中，需要等待
-                // 等待
+                // 인코딩 중일 수 있으며, 기다려야 합니다.
+                // 대기
                 while (!cacheInfoData.current[file.name].fileInfoSuccess) {
-                  console.log('等待截取帧');
+                  console.log('프레임 캡처 대기');
                   await util.sleep(1000);
                 }
-                console.log('截帧完成!');
+                console.log('프레임 캡처 완료!');
 
                 const { name, thumb, progress, id, status, ...other } = cacheInfoData.current[file.name];
                 const attrs = {};
@@ -282,7 +282,7 @@ export default function List(props: IProps) {
                   }
                 }
                 const url = res.data.storage_path;
-                // 保存到素材库
+                // 자료실에 저장
                 const [item, err] = await server.createUserMaterial({
                   app_id: editor.appid,
                   name: name,
@@ -307,12 +307,12 @@ export default function List(props: IProps) {
                 block
                 icon={<UploadIcon theme="outline" size="20" fill="#FFF" />}
               >
-                上传素材
+                자료 업로드
               </Button>
             </Upload>
           ) : (
             <Select
-              defaultValue="根目录"
+              defaultValue="루트 디렉토리"
               onChange={v => {
                 Object.assign(params.current, {
                   page: 1,
@@ -343,7 +343,7 @@ export default function List(props: IProps) {
             <Empty
               image={<IllustrationNoContent style={{ width: 150, height: 150 }} />}
               darkModeImage={<IllustrationNoContentDark style={{ width: 150, height: 150 }} />}
-              description={<div className={styles.loginTip}>该项目暂无素材，请先上传</div>}
+              description={<div className={styles.loginTip}>이 프로젝트에 자료가 없습니다. 먼저 업로드해 주세요.</div>}
               style={{ padding: 30 }}
             />
           </div>
@@ -378,12 +378,12 @@ export default function List(props: IProps) {
                 <>
                   {d.progress !== undefined && (
                     <span className={styles.progress}>
-                      {d.status === 'ready' && <span className={styles.tips}>上传准备</span>}
+                      {d.status === 'ready' && <span className={styles.tips}>업로드 준비중</span>}
                       {['uploadStart', 'uploading', 'decoding'].includes(d.status) && (
                         <Progress percent={d.progress} strokeWidth={2} showInfo type="circle" width={50} />
                       )}
-                      {/* {d.status === 'decoding' && <span className={styles.tips}>编码中</span>} */}
-                      {d.status === 'uploaded' && <span className={styles.tips}>上传完成</span>}
+                      {/* {d.status === 'decoding' && <span className={styles.tips}>인코딩 중</span>} */}
+                      {d.status === 'uploaded' && <span className={styles.tips}>업로드 완료</span>}
                     </span>
                   )}
                   {d.status !== 'ready' && d.type === 'audio' ? (

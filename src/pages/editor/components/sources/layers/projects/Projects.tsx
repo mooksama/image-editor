@@ -41,15 +41,15 @@ export default function Projects(props: IProps) {
           <Button
             onClick={async () => {
               Modal.confirm({
-                title: '是否要新建项目？',
-                content: '新建项目前请先保存当前项目',
+                title: '프로젝트를 새로 만드시겠습니까?',
+                content: '새 프로젝트를 만들기 전에 현재 프로젝트를 저장하십시오',
                 onOk: async () => {
                   const ndata = getInitData();
                   const [res, err] = await server.createVideo({
                     source_id: '', //来源Id
                     category_id: 0, //分类Id
-                    name: ndata.name || '未命名', //名称
-                    description: ndata.desc || '暂无描述', //描述
+                    name: ndata.name || '이름 없음', //名称
+                    description: ndata.desc || '설명 없음', //描述
                     width: ndata.pages[0].width, //宽度
                     height: ndata.pages[0].height, //高度
                     thumb: '', //封面图url
@@ -67,7 +67,7 @@ export default function Projects(props: IProps) {
             type="primary"
             style={{ width: 'calc(100% - 34px)' }}
           >
-            新建项目
+            새 프로젝트
           </Button>
           <Dropdown
             contentClassName={styles.dropdown}
@@ -88,8 +88,8 @@ export default function Projects(props: IProps) {
                 ),
                 onClick: async () => {
                   Modal.confirm({
-                    title: '是否要新建项目？',
-                    content: '新建项目前请先保存当前项目',
+                    title: '프로젝트를 새로 만드시겠습니까?',
+                    content: '새 프로젝트를 만들기 전에 현재 프로젝트를 저장하십시오',
                     onOk: async () => {
                       const ndata = getInitData();
                       ndata.pages[0].width = d.width;
@@ -97,8 +97,8 @@ export default function Projects(props: IProps) {
                       const [res, err] = await server.createVideo({
                         source_id: '', //来源Id
                         category_id: 0, //分类Id
-                        name: ndata.name || '未命名', //名称
-                        description: ndata.desc || '暂无描述', //描述
+                        name: ndata.name || '이름 없음', //名称
+                        description: ndata.desc || '설명 없음', //描述
                         width: ndata.pages[0].width, //宽度
                         height: ndata.pages[0].height, //高度
                         thumb: '', //封面图url
@@ -130,8 +130,8 @@ export default function Projects(props: IProps) {
                   <li
                     onClick={() => {
                       Modal.confirm({
-                        title: '确定删除？',
-                        content: '删除后无法恢复，请谨慎操作',
+                        title: '삭제하시겠습니까?',
+                        content: '삭제 후에는 복구할 수 없습니다. 신중하게 작업하십시오',
                         onOk: async () => {
                           await server.deleteDraft({ id: item.id });
                           params.current.page = 1;
@@ -141,20 +141,20 @@ export default function Projects(props: IProps) {
                       });
                     }}
                   >
-                    删除
+                    삭제
                   </li>
                   <li
                     onClick={async () => {
                       const [res, err] = await server.copyDraft({ id: item.id });
                       if (err) {
-                        Toast.error('复制失败');
+                        Toast.error('복사 실패');
                       }
                       params.current.page = 1;
                       getList();
-                      Toast.success('复制成功');
+                      Toast.success('복사 성공');
                     }}
                   >
-                    复制
+                    복사
                   </li>
                 </ul>
               }
@@ -166,8 +166,8 @@ export default function Projects(props: IProps) {
             <a
               onClick={() => {
                 Modal.confirm({
-                  title: '是否要切换项目？',
-                  content: '切换项目前请先保存当前项目',
+                  title: '프로젝트를 전환하시겠습니까?',
+                  content: '프로젝트를 전환하기 전에 현재 프로젝트를 저장하십시오',
                   onOk: () => {
                     location.href = `/editor/${item.id}`;
                   },
@@ -186,7 +186,7 @@ export default function Projects(props: IProps) {
               </div>
             </a>
             <input
-              title="点击修改名称"
+              title="이름을 수정하려면 클릭하십시오"
               onFocus={e => {
                 currentName.current = e.target.value;
               }}
@@ -197,11 +197,11 @@ export default function Projects(props: IProps) {
                 if (err) {
                   Toast.error(err);
                 } else {
-                  Toast.success('修改成功！');
+                  Toast.success('수정 성공!');
                 }
               }}
               className={styles.name}
-              defaultValue={item.name || '未命名'}
+              defaultValue={item.name || '이름 없음'}
             />
           </div>
         );

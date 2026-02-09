@@ -52,7 +52,7 @@ export default function ImageComp(props: LayerProps) {
     return [box, img];
   }, []);
 
-  // 公共use
+  // 공용 훅
   useLayerBaseStyle(layer, imgBox as any, props.store, props.zIndex);
 
   const replaceColor = (txt: string) => {
@@ -60,7 +60,7 @@ export default function ImageComp(props: LayerProps) {
       layer.svgColorType = 'more';
     }
     console.log('layer.svgColorType', layer.svgColorType, layer.svgColors);
-    // 替换颜色
+    // 색상 교체
     if (layer.svgColorType === 'one') {
       if (layer.svgColors && layer.svgColors[0]) {
         txt = utils.replaceSveColor(txt, layer.svgColors[0] || '#000000');
@@ -73,7 +73,7 @@ export default function ImageComp(props: LayerProps) {
     return 'data:image/svg+xml,' + encodeURIComponent(txt);
   };
 
-  // 如果是svg，需要解析数据结构
+  // SVG인 경우 데이터 구조를 분석해야 합니다.
   const svgHTML = async (url: string) => {
     const ext = getFileExtension(url);
     if (svgstr.current) {
@@ -85,13 +85,13 @@ export default function ImageComp(props: LayerProps) {
           if (response.ok) {
             const txt = await response.text();
             svgstr.current = txt;
-            console.log('首次加载svg', txt);
+            console.log('처음으로 SVG를 로드합니다', txt);
             return replaceColor(txt);
           }
-          throw new Error('Network response was not ok.');
+          throw new Error('네트워크 응답이 올바르지 않습니다.');
         })
         .catch(error => {
-          console.error('There has been a problem with your fetch operation:', error);
+          console.error('fetch 작업에 문제가 발생했습니다:', error);
         });
     } else {
       return url;
@@ -124,11 +124,11 @@ export default function ImageComp(props: LayerProps) {
     imgUI.x = layer.width / 2;
     imgUI.y = layer.height / 2;
 
-    // 设置宽高
+    // 너비와 높이 설정
     imgBox.width = layer.width;
     imgBox.height = layer.height;
 
-    // 翻转
+    // 뒤집기
     if (layer.flipx) {
       imgUI.scaleX = -1;
     } else {
@@ -140,7 +140,7 @@ export default function ImageComp(props: LayerProps) {
       imgUI.scaleY = 1;
     }
 
-    //圆角
+    // 모서리 반경
     imgUI.cornerRadius = layer.cornerRadius ? [...layer.cornerRadius] : undefined;
   }, [
     layer.width,
@@ -161,7 +161,7 @@ export default function ImageComp(props: LayerProps) {
       imgUI.x = layer.width / 2;
       imgUI.y = layer.height / 2;
 
-      // 裁剪
+      // 자르기
       const { x, y, width, height } = layer.cropSize || {
         x: 0,
         y: 0,

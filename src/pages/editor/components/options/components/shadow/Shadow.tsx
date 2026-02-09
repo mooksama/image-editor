@@ -28,7 +28,7 @@ function Shadow(props: IProps) {
 
   return (
     <Item
-      title="阴影"
+      title="그림자"
       extra={
         <Switch
           size="small"
@@ -66,7 +66,7 @@ function Shadow(props: IProps) {
           <div className={styles.inputs}>
             <InputNumber
               innerButtons
-              prefix="模糊"
+              prefix="블러"
               value={util.toNum(elementData.shadow.blur)}
               onChange={(v: number) => {
                 elementData.shadow.blur = util.toNum(v);
@@ -77,13 +77,13 @@ function Shadow(props: IProps) {
               onBlur={() => {
                 editor.record({
                   type: 'update',
-                  desc: '修改阴影blur',
+                  desc: '그림자 블러 수정',
                 });
               }}
             />
             <InputNumber
               innerButtons
-              prefix="扩散"
+              prefix="확산"
               value={util.toNum(elementData.shadow.spread)}
               onChange={(v: number) => {
                 elementData.shadow.spread = util.toNum(v);
@@ -94,7 +94,7 @@ function Shadow(props: IProps) {
               onBlur={() => {
                 editor.record({
                   type: 'update',
-                  desc: '修改阴影扩展',
+                  desc: '그림자 확산 수정',
                 });
               }}
             />
@@ -102,7 +102,7 @@ function Shadow(props: IProps) {
           <div className={styles.inputs}>
             <InputNumber
               innerButtons
-              prefix="X轴"
+              prefix="X축"
               value={util.toNum(elementData.shadow.x)}
               onChange={(v: number) => {
                 elementData.shadow.x = util.toNum(v);
@@ -113,13 +113,13 @@ function Shadow(props: IProps) {
               onBlur={() => {
                 editor.record({
                   type: 'update',
-                  desc: '修改阴影距离',
+                  desc: '그림자 X축 수정',
                 });
               }}
             />
             <InputNumber
               innerButtons
-              prefix="Y轴"
+              prefix="Y축"
               value={util.toNum(elementData.shadow.y)}
               onChange={(v: number) => {
                 elementData.shadow.y = util.toNum(v);
@@ -130,7 +130,7 @@ function Shadow(props: IProps) {
               onBlur={() => {
                 editor.record({
                   type: 'update',
-                  desc: '修改阴影Y',
+                  desc: '그림자 Y축 수정',
                 });
               }}
             />

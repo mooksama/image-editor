@@ -13,8 +13,7 @@ function LoginRegister({ children }: any) {
     if (!user.info) {
       setVisible(true);
     } else {
-      console.log(user.info);
-      console.warn('已经登录过了');
+      console.log(user.info); 
       // history.push(location.pathname);
     }
   };
@@ -38,7 +37,7 @@ function LoginRegister({ children }: any) {
         <span onClick={showVisible}>{children}</span>
       ) : (
         <a onClick={showVisible} className={styles.loginRegisterBtn}>
-          登录/注册
+          로그인/회원가입
         </a>
       )}
       <Modal
@@ -46,7 +45,7 @@ function LoginRegister({ children }: any) {
         style={{ padding: 0 }}
         bodyStyle={{ padding: 0, margin: 0, border: 'none' }}
         title={null}
-        width={836}
+        width={400}
         visible={visible}
         zIndex={2000}
         footer={null}

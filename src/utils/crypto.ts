@@ -12,7 +12,7 @@ function getNumArr(val: string, secretKey: string) {
   return num.split('');
 }
 
-// 加密
+// 암호화
 function encrypt(val: string, secretKey: string = config.secretKey) {
   if (!val) {
     return val;
@@ -25,7 +25,7 @@ function encrypt(val: string, secretKey: string = config.secretKey) {
   return str;
 }
 
-// 解密
+// 복호화
 function decrypt(secretStr = '', secretKey = config.secretKey) {
   if (!secretStr) {
     return secretStr;

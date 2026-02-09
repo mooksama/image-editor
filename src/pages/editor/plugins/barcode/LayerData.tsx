@@ -2,7 +2,7 @@ import { IBlendMode, IShadowEffect } from '@leafer-ui/interface';
 import { util } from '@utils/index';
 import { BarcodeLayer } from './types';
 
-export default class QrcodeData implements BarcodeLayer {
+export default class BarcodeData implements BarcodeLayer {
   type: 'barcode' = 'barcode';
   width: number = 600;
   height: number = 300;
@@ -10,8 +10,8 @@ export default class QrcodeData implements BarcodeLayer {
   flipx: boolean = false;
   flipy: boolean = false;
   id: string = util.createID();
-  name: string = '图片元素';
-  desc: string = '描述信息';
+  name: string = '이미지 요소';
+  desc: string = '설명 정보';
   x: number = 0;
   y: number = 0;
   blur: number = 0;

@@ -11,7 +11,7 @@ export interface IProps {
 }
 
 /**
- * 操作记录，redo，undo
+ * 작업 기록, 되돌리기, 다시 실행
  * @param props
  * @returns
  */
@@ -21,11 +21,11 @@ function RecordManager(props: IProps) {
 
   useEffect(() => {
     manager.current = new UndoRedoManager({
-      limit: 50, // 设置最大记录30次，默认是50次
+      limit: 50, // 최대 기록 30회 설정, 기본값은 50회
     });
 
     const add = (item: RecordItem<RecordType>) => {
-      // console.log('Record数据--------------->', item, utils.toJS(store.data));
+      // console.log('Record 데이터--------------->', item, utils.toJS(store.data));
       manager.current.add({
         id: utils.createID(),
         type: 'global',
@@ -33,36 +33,36 @@ function RecordManager(props: IProps) {
         selecteds: [...item.selecteds],
         mdata: utils.cloneData(store.data),
       });
-      // 更新test
+      // test 업데이트
       if (store.addRecordCallback) {
         store.addRecordCallback();
       }
     };
 
-    // 恢复数据
+    // 데이터 복원
     const restore = (item: RecordItem<RecordType>, type: 'undo' | 'redo'): boolean => {
       if (!item) {
-        console.warn('已经恢复到初始位置');
+        console.warn('이미 초기 위치로 복원되었습니다');
         return false;
       }
-      // 找到对应的数据，然后设置参数
+      // 해당 데이���를 찾아서 매개변수 설정
       if (item.mdata) {
         utils.objectCopyValue(item.mdata, store.data);
       }
-      // 更新视图
+      // 뷰 업데이트
       store.update();
       store.editor.update();
       pubsub.publish('emitSelectElements', [...(item.selecteds || [])]);
       return true;
     };
 
-    // 重做
+    // 다시 실행
     const redo = () => {
       const item = manager.current.redo() as RecordItem<RecordType>;
       return restore(item, 'redo');
     };
 
-    // 撤销
+    // 되돌리기
     const undo = () => {
       const item = manager.current.undo() as RecordItem<RecordType>;
       return restore(item, 'undo');
@@ -70,7 +70,7 @@ function RecordManager(props: IProps) {
 
     store.record = { add, redo, undo, debounceAdd: debounce(add, 500), manager: manager.current };
 
-    add({ type: 'global', desc: '初始化数据', selecteds: [] });
+    add({ type: 'global', desc: '초기화 데이터', selecteds: [] });
 
     return () => {
       manager.current.destroy();

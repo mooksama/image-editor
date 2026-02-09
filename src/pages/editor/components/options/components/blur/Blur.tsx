@@ -15,7 +15,7 @@ function Blur(props: IProps) {
   const elementData = editor.getElementData() as BaseLayer;
   let blur = elementData.blur;
   return (
-    <Item title="模糊度">
+    <Item title="블러">
       <div className={styles.opacity}>
         <SliderInput
           step={1}

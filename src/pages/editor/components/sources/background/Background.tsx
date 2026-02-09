@@ -26,10 +26,10 @@ export default function Background(props: IProps) {
   return (
     <div style={{ height: '100%', display: props.show ? 'block' : 'none' }}>
       <Tabs className={styles.tabs} type="line">
-        <TabPane tab="背景色" itemKey="projects">
+        <TabPane tab="배경색" itemKey="projects">
           <BackgroundColor />
         </TabPane>
-        <TabPane tab="背景图" itemKey="pages">
+        <TabPane tab="배경 이미지" itemKey="pages">
           <BackgroundImage />
         </TabPane>
       </Tabs>

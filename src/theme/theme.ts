@@ -17,7 +17,7 @@ class Theme {
     // storage.local.set('theme', this.theme);
   }
   /**
-   * 主题切换
+   * 테마 전환
    */
   setTheme = (themeName: ThemeType): void => {
     this.theme = themeName;
@@ -41,7 +41,7 @@ class Theme {
     return this.theme || storage.local.get('theme') || 'dark';
   };
 
-  // 根据传入暗黑模式下的颜色值 自动在不同的环境下切换对应的颜色值
+  // 전달된 다크 모드 색상 값을 기반으로 다른 환경에서 해당 색상 값을 자동으로 전환
   findColor = (val: string): string => {
     if (this.theme === 'dark') {
       return val;

@@ -44,7 +44,7 @@ export default function Title(props: IProps) {
           <span className="rc-tree-name">
             {name.substring(0, 12)}
             {name.length > 12 ? '...' : ''}
-            {info ? `（${info.substring(0, 6) + (info.length > 6 ? '...' : '')}）` : ''}
+            {info ? `(${info.substring(0, 6) + (info.length > 6 ? '...' : '')})` : ''}
           </span>
         ) : (
           <Input

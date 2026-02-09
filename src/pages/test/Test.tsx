@@ -2,7 +2,7 @@ import styles from './home.module.less';
 import { Link } from 'react-router-dom';
 
 interface IProps {
-  ssrRes?: any; // 服务器渲染加载的数据
+  ssrRes?: any; // 서버 렌더링으로 로드된 데이터
   location: { pathname: string; search: string; hash: string; state: any };
   history: History;
   match: { path: string; url: string; isExact: boolean; params: any };

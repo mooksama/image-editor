@@ -12,8 +12,7 @@ import { BaseLayer, BasePage, GroupLayer, ViewData } from '@pages/editor/core/ty
 import remove from 'lodash/remove';
 import debounce from 'lodash/debounce';
 import { Toast } from '@douyinfe/semi-ui';
-
-// 素材类型
+// 소재 유형
 export type MaterialTypes =
   | 'text'
   | 'image'
@@ -31,64 +30,63 @@ class Editor {
 
   public data!: ViewData;
 
-  // 缓存复制的数据
+  // 복사된 데이터를 캐시
   public copyTempData: any;
 
-  // 图片裁剪开关
+  // 이미지 자르기 스위치
   @observable cropper: boolean = false;
 
-  // 最后一次更新的数据
+  // 마지막으로 업데이트된 데이터
   public lastUpdateAppData: any = '';
 
   @observable updateViewKey: string = '';
 
-  // 鼠标右键菜单触发显示的函数
+  // 마우스 오른쪽 버튼 메뉴 표시 함수
   public showContextMenu: (event: any, props: Record<string, any>) => void;
 
-  // 资源切换后，缓存list数据
+  // 리소스 전환 후, list 데이터를 캐시
   public activeItems: Record<ctypes.SourceType, SourceItem[]> = {};
-  // 设置缓存数据
+  // 캐시 데이터 설정
   setActiveItems = (items: SourceItem[], type: ctypes.SourceType) => {
     this.activeItems[type] = items;
 
-    // 测试用
+    // 테스트용
     if (!(window as any).activeItems) {
       (window as any).activeItems = {};
     }
     (window as any).activeItems[type] = items;
   };
-  // 从缓存数据中读取数据
+  // 캐시 데이터에서 데이터 읽기
   getFromActiveItems = (id: string, type: ctypes.SourceType) => {
     const items = this.activeItems[type] || [];
     return items.find(d => d.id === id);
   };
 
-  // 当前选中的page
+  // 현재 선택된 페이지
   @observable selectPageId: string;
 
   get pageData(): BasePage {
     return this.data.pages.find(d => d.id === this.selectPageId);
   }
 
-  // option面板自定义
+  // 옵션 패널 사용자 정의
   @observable optionPanelCustom: 'background' | '' = '';
 
-  // 记录APPID
+  // APPID 기록
   @observable appid: string = '';
 
-  // 主题更新
+  // 테마 업데이트
   @observable themeUpdateKey: 'dark' | 'light' = theme.getTheme();
 
-  // 多语言
+  // 다국어
   @observable languageUpdateKey: 'zh-CN' | 'en-US' = language.getLanguage();
 
-  // 历史记录测试用
+  // 히스토리 기록 테스트용
   @observable recordUpdateTestKey: number = 1;
 
-  // movie创建成功
+  // 영화 생성 성공
   @observable movieCreateSuccess: boolean = false;
-
-  // 触发设置区域变化
+  // 설정 영역 변경 트리거
   @observable updateKey: string = '1';
 
   @observable updateCanvasKey: string = '1';
@@ -106,24 +104,24 @@ class Editor {
     if (!params) {
       params = {
         type: 'global',
-        desc: '添加操作记录',
+        desc: '작업 기록 추가',
         selecteds: [...editor.selectedElementIds],
       };
     }
     if (!params.selecteds) {
       params.selecteds = [...editor.selectedElementIds];
     }
-    // 历史记录
+    // 히스토리 기록
     this.store.record.add(params);
     this.recordUpdateTestKey = +new Date();
   };
 
-  // 标尺线
+  // 눈금자
   ruler: Ruler = null;
 
   @action
   updateCanvas = () => {
-    console.log('更新画面');
+    console.log('화면 업데이트');
     this.updateCanvasKey = util.randomID();
     if (this.store) {
       this.store.update();
@@ -134,7 +132,7 @@ class Editor {
   updateCanvasSync = debounce(this.updateCanvas, 100);
 
   /**
-   * 上移一层
+   * 한 단계 위로 이동
    * @param selectedIds
    */
   @action
@@ -142,37 +140,36 @@ class Editor {
     if (!selectedIds) {
       selectedIds = [...this.selectedElementIds];
     }
-    // 找到选中对象的索引
+    // 선택된 객체의 인덱스를 찾기
     let selectedIndexes = selectedIds.map(id => this.pageData.layers.findIndex(obj => obj.id === id));
-    // 向下移动选中对象
+    // 선택된 객체를 위로 이동
     const array = this.pageData.layers;
     selectedIndexes.forEach(index => {
       if (index > 0) {
-        // 交换位置
+        // 위치 교환
         [array[index], array[index - 1]] = [array[index - 1], array[index]];
       }
     });
     this.updateCanvas();
     this.store.emitControl(selectedIds);
   }
-
   /**
-   * 下移一层
+   * 한 단계 아래로 이동
    * @param selectedIds
    */
   @action
   downOneElement(selectedIds?: string[]) {
-    console.log('将选中图层向下移动一层');
+    console.log('선택한 레이어를 한 단계 아래로 이동');
     if (!selectedIds) {
       selectedIds = [...this.selectedElementIds];
     }
-    // 找到选中对象的索引
+    // 선택된 객체의 인덱스를 찾기
     let selectedIndexes = selectedIds.map(id => this.pageData.layers.findIndex(obj => obj.id === id));
-    // 向下移动选中对象
+    // 선택된 객체를 아래로 이동
     const array = this.pageData.layers;
     selectedIndexes.forEach(index => {
       if (index < array.length - 1) {
-        // 交换位置
+        // 위치 교환
         [array[index], array[index + 1]] = [array[index + 1], array[index]];
       }
     });
@@ -181,7 +178,7 @@ class Editor {
   }
 
   /**
-   * 置顶
+   * 맨 위로 이동
    * @param ids
    */
   @action
@@ -196,7 +193,7 @@ class Editor {
   }
 
   /**
-   * 置底
+   * 맨 아래로 이동
    * @param ids
    */
   @action
@@ -211,7 +208,7 @@ class Editor {
   }
 
   /**
-   * 复制元素
+   * 요소 복사
    * @param ids
    */
   @action
@@ -221,14 +218,14 @@ class Editor {
     }
     const elements = this.getElementDataByIds(ids) || [];
     this.copyTempData = util.toJS(elements);
-    Toast.success('复制成功，点击 Ctrl + V 进行粘贴');
+    Toast.success('복사 성공, Ctrl + V를 눌러 붙여넣기');
   }
 
   /**
-   * 剪切元素
+   * 요소 잘라내기
    */
   cutElement(ids?: string[]) {
-    console.log('剪切元素');
+    console.log('요소 잘라내기');
     if (!ids) {
       ids = [...this.selectedElementIds];
     }
@@ -237,11 +234,11 @@ class Editor {
     this.store.deleteLayers(ids);
     this.updateCanvas();
     this.store.emitControl([]);
-    Toast.success('剪切成功，点击 Ctrl + V 进行粘贴');
+    Toast.success('잘라내기 성공, Ctrl + V를 눌러 붙여넣기');
   }
 
   /**
-   * 选中的元素
+   * 선택된 요소
    */
   @observable selectedElementIds: string[] = [];
   @action
@@ -259,27 +256,27 @@ class Editor {
   }
 
   /**
-   * 设置控制器
+   * 컨트롤러 설정
    * @param element
    */
   setContorlAndSelectedElemenent = (ids: string[]) => {
-    // updateControl 会触发Movie的 onSelectElements 事件
+    // updateControl은 Movie의 onSelectElements 이벤트를 트리거합니다.
     transaction(() => {
       this.setSelectedElementIds([...ids]);
       this.optionPanelCustom = '';
     });
-    // 设置控制器
-    console.log('设置控制器');
+    // 컨트롤러 설정
+    console.log('컨트롤러 설정');
     this.store.emitControl([...ids]);
   };
 
   /**
-   * 更新布局的标识
+   * 레이아웃 키 업데이트
    */
   @observable layoutKeys: Record<ctypes.LayoutName, string> = {
-    sources: '1', // 资源面板
-    timeline: '1', // 时间轴
-    options: '1', // 设置面板
+    sources: '1', // 리소스 패널
+    timeline: '1', // 타임라인
+    options: '1', // 설정 패널
     canvas: '1', //
     header: '1',
   };
@@ -294,7 +291,7 @@ class Editor {
   };
 
   /**
-   * 资源面板切换
+   * 리소스 패널 전환
    */
   @observable sourceType: ctypes.SourceType = 'template';
   @action
@@ -304,7 +301,7 @@ class Editor {
   };
 
   /**
-   * 设置面板切换
+   * 설정 패널 전환
    */
   @observable elementOptionType: ctypes.ElementOptionType = 'basic';
   @action
@@ -322,7 +319,7 @@ class Editor {
   };
 
   /**
-   * 获取单个选中的元素数据
+   * 단일 선택된 요소 데이터 가져오기
    * @returns
    */
   @action
@@ -333,7 +330,7 @@ class Editor {
   };
 
   /**
-   * 获取选中的组的元素数据
+   * 선택된 그룹의 요소 데이터 가져오기
    * @returns
    */
   @action
@@ -366,7 +363,7 @@ class Editor {
   };
 
   /**
-   * 复制元素
+   * 요소 복사
    */
   @action
   copyElementData = () => {

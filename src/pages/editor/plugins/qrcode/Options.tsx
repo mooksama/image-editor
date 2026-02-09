@@ -17,7 +17,7 @@ function Options(props: IProps) {
         editor.elementOptionType = e as any;
       }}
     >
-      <TabPane tab="元素设置" itemKey="basic">
+      <TabPane tab="요소 설정" itemKey="basic">
         <div className={'scroll scrollBox'}>
           <FlipXY />
           <QrOption />
@@ -30,7 +30,7 @@ function Options(props: IProps) {
           <Rotation />
         </div>
       </TabPane>
-      <TabPane tab="混合模式" itemKey="colour">
+      <TabPane tab="혼합 모드" itemKey="colour">
         <Filter />
       </TabPane>
     </Tabs>

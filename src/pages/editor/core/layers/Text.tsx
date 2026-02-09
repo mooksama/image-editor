@@ -74,7 +74,7 @@ export default function TextComp(props: LayerProps) {
     Object.assign(
       textElem,
       {
-        // 默认值
+        // 기본값
         fontWeight: 'normal',
         italic: false,
         textDecoration: 'none',
@@ -86,15 +86,15 @@ export default function TextComp(props: LayerProps) {
     resizeText();
   }, [layer.fill, layer.text, layer.textStyle, layer._dirty]);
 
-  // 修改字体
+  // 폰트 변경
   useEffect(() => {
-    // 加载字体
+    // 폰트 로드
     if (layer.fontFamilyURL) {
-      console.log('字体加载中');
+      console.log('폰트 로드 중');
       const textElem = textBox.children[0] as IText;
       textElem.fontFamily = 'Arial, sans-serif';
       loadFont(layer.textStyle.fontFamily, layer.fontFamilyURL).then(() => {
-        // console.log('加载成功');
+        // console.log('로드 성공');
         textElem.fontFamily = layer.textStyle.fontFamily;
         resizeText();
       });
@@ -103,7 +103,7 @@ export default function TextComp(props: LayerProps) {
     // textElem.width = undefined;
   }, [layer.fontFamilyURL, layer.textStyle.fontFamily]);
 
-  // 公共use
+  // 공용 use
   useLayerBaseStyle(layer, textBox as any, props.store, props.zIndex);
 
   useEffect(() => {
@@ -131,7 +131,7 @@ export default function TextComp(props: LayerProps) {
     };
 
     props.store.elementDragUp[layer.id] = () => {
-      // 修改json数据
+      // JSON 데이터 수정
       const textElem = textBox.children[0] as IText;
       layer.textStyle.fontSize = textElem.fontSize;
       layer.textStyle.strokeWidth = textElem.strokeWidth;
@@ -139,16 +139,16 @@ export default function TextComp(props: LayerProps) {
     };
     props.store.controlScaleFuns[layer.id] = () => {
       const textElem = textBox.children[0] as IText;
-      // 解决对齐后文字定位问题
+      // 정렬 후 텍스트 위치 문제 해결
       textElem.x = 0;
       const fontScale = textElem.width / tempData.width;
       const fontSize = utils.toIntNum(Math.max(tempData.fontSize * fontScale, 1), 2);
       const strokeWidth = utils.toIntNum(Math.max(tempData.strokeWidth * fontScale, 1), 2);
-      // 修改样式
+      // 스타일 수정
       textElem.fontSize = fontSize;
       textElem.strokeWidth = strokeWidth;
 
-      // 修改json数据
+      // JSON 데이터 수정
       layer.textStyle.fontSize = fontSize;
       layer.textStyle.strokeWidth = strokeWidth;
     };

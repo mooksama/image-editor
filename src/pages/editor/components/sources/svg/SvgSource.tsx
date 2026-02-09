@@ -11,7 +11,7 @@ export interface IProps {
   show: boolean;
 }
 
-// 判断是否加载了，只加载一次
+// 로드 여부 판단, 한 번만 로드
 let hasRender = false;
 
 export default function Background(props: IProps) {
@@ -29,7 +29,7 @@ export default function Background(props: IProps) {
         <TabPane tab="Iconfont" itemKey="iconfont">
           <SvgIcofont />
         </TabPane>
-        <TabPane tab="系统" itemKey="system">
+        <TabPane tab="시스템" itemKey="system">
           <SvgSystem />
         </TabPane>
       </Tabs>

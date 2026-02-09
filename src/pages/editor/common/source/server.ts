@@ -4,7 +4,7 @@ import type { MaterialTypes } from '@stores/editor';
 import { config } from '@config/index';
 
 class Server extends BasicService {
-  // 获取分类列表
+  // 카테고리 목록 가져오기
   getTypeItems = async (type: MaterialTypes) => {
     const typeMap = {
       text: 211,
@@ -24,7 +24,7 @@ class Server extends BasicService {
     return this.get(`/api/v1/template/categories/tree`, { params: { page_size: 99 } });
   };
 
-  // 获取素材
+  // 소재 가져오기
   getMaterialItems = async (params: {
     type: MaterialTypes;
     category_id?: string | number;
@@ -35,7 +35,7 @@ class Server extends BasicService {
     return this.get('/api/v1/materials/page', { params });
   };
 
-  // 搜索模版
+  // 템플릿 검색
   searchTemplateItems = async (params: {
     category_id?: string | number;
     keyword?: string;
@@ -67,7 +67,7 @@ class Server extends BasicService {
     });
   };
 
-  // 获取素材关键字匹配
+  // 소재 키워드 매칭 검색
   searchMaterialItems = async (params: {
     type: MaterialTypes;
     category_id?: string | number;
@@ -78,17 +78,17 @@ class Server extends BasicService {
     return this.get('/api/v1/materials/page', { params });
   };
 
-  // 搜藏元素
+  // 요소 즐겨찾기
   collect = async (source_id: string, type: string) => {
     return this.post(`/api/v1/user/collects/create`, { type, source_id });
   };
 
-  // 取消收藏
+  // 즐겨찾기 취소
   collectCancle = async (source_id: Array<string>) => {
     return this.post(`/api/v1/user/collects/cancel`, { source_id });
   };
 
-  // 获取收藏列表
+  // 즐겨찾기 목록 가져오기
   getCollects = async (params: {
     type: MaterialTypes;
     category_id?: string | number;
@@ -103,7 +103,7 @@ class Server extends BasicService {
 export const server = new Server();
 
 /**
- * 获取素材的列表Items数据
+ * 소재의 목록 Items 데이터 가져오기
  * @param type
  * @param params
  * @param items

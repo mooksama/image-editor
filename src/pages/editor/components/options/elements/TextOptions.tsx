@@ -28,7 +28,7 @@ function TextOptions(props: IProps) {
         editor.elementOptionType = e as any;
       }}
     >
-      <TabPane tab="基础" itemKey="basic">
+      <TabPane tab="기본" itemKey="basic">
         <div className="scroll scrollBox">
           {/* <Align /> */}
           <FlipXY />
@@ -42,7 +42,7 @@ function TextOptions(props: IProps) {
           <Rotation />
         </div>
       </TabPane>
-      <TabPane tab="混合模式" itemKey="colour">
+      <TabPane tab="혼합 모드" itemKey="colour">
         <Filter />
       </TabPane>
     </Tabs>

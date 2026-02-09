@@ -1,6 +1,6 @@
 import '@theme/theme.less';
 import React, { Component, createRef } from 'react';
-// import { Redirect, Switch } from 'react-router-dom'; // 路由
+// import { Redirect, Switch } from 'react-router-dom'; // 라우터
 import { userService } from '@server/index';
 import { pubsub, util } from '@utils/index';
 import { config } from '@config/index';
@@ -25,22 +25,22 @@ class App extends Component<AppProps> {
   }
 
   /**
-   * 如果url中存在token，会自动获取token，然后自动登录，之后再去掉token
+   * URL에 토큰이 있으면 자동으로 토큰을 가져와서 자동 로그인 후 토큰을 제거합니다.
    */
   urlTokenLogin = () => {
-    // 如果url存在token，先设置token参数，再获取用户数据
+    // URL에 토큰이 있으면 토큰 파라미터를 설정한 후 사용자 데이터를 가져옵니다.
     let token: any = util.getUrlQuery('token');
     if (token) {
-      // 去掉url对应的token参数
+      // URL에서 해당 토큰 파라미터를 제거합니다.
       window.history.pushState(null, '', util.delUrlParam('token'));
       token = decodeURI(token);
       user.setToken(token);
     }
 
-    // 需要登录
+    // 로그인이 필요합니다.
     if (token) {
       userService.getUserDetail();
-      console.log('需要登录，更新用户信息');
+      console.log('로그인이 필요합니다. 사용자 정보를 업데이트합니다.');
     }
   };
 
@@ -48,7 +48,7 @@ class App extends Component<AppProps> {
     (window as any).RouterHistory = this.routerRef.current.history;
     this.urlTokenLogin();
 
-    // 多语言处理
+    // 다국어 처리
     pubsub.subscribe('setLanguage', () => {
       this.forceUpdate();
     });

@@ -10,7 +10,7 @@ export interface IProps {
 export default function EffectOptions(props: IProps) {
   return (
     <Tabs className="optionTabs" defaultActiveKey={'lottie'}>
-      <TabPane tab="基础" itemKey="basic">
+      <TabPane tab="기본" itemKey="basic">
         <div className={'scroll scrollBox'}>
           <Align />
           <Position />
@@ -20,10 +20,10 @@ export default function EffectOptions(props: IProps) {
           {/* <BlendMode /> */}
         </div>
       </TabPane>
-      <TabPane tab="动画" itemKey="animation">
+      <TabPane tab="애니메이션" itemKey="animation">
         <Animation />
       </TabPane>
-      <TabPane tab="滤镜" itemKey="colour">
+      <TabPane tab="필터" itemKey="colour">
         <Colour />
       </TabPane>
     </Tabs>

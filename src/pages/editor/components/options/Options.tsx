@@ -23,7 +23,7 @@ function Options(props: IProps) {
     //       image={<IllustrationNoContent style={{ width: 150, height: 150 }} />}
     //       darkModeImage={<IllustrationNoContentDark style={{ width: 150, height: 150 }} />}
     //       // title="未选中任何元素"
-    //       description="未选中任何元素"
+    //       description="선택된 요소가 없습니다"
     //     />
     //   </div>
     // );

@@ -35,7 +35,7 @@ export default function MoreColors(props: IProps) {
                   editor.updateCanvas();
                   editor.record({
                     type: 'update',
-                    desc: '修改svg颜色',
+                    desc: 'SVG 색상 수정',
                   });
                 }}
               >
@@ -54,7 +54,7 @@ export default function MoreColors(props: IProps) {
           editor.updateCanvas();
           editor.record({
             type: 'update',
-            desc: '修改svg颜色',
+            desc: 'SVG 색상 수정',
           });
         }}
       >

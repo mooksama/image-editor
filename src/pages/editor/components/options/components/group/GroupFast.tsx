@@ -15,14 +15,14 @@ function GroupFast(props: IProps) {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   return (
-    <Item title="快捷操作">
-      {/* <div>边框，阴影，裁剪、图层、下移、上移、置顶、置底</div> */}
+    <Item title="빠른 작업">
+      {/* <div>테두리, 그림자, 자르기, 레이어, 아래로 이동, 위로 이동, 맨 위로 이동, 맨 아래로 이동</div> */}
       <div className={styles.position}>
-        <Tooltip content="合并图层">
+        <Tooltip content="레이어 병합">
           <a
             onClick={() => {
               console.log([...editor.selectedElementIds]);
-              // 数据合并
+              // 데이터 병합
               const g = editor.store.groupData([...editor.selectedElementIds]);
               editor.setSelectedElementIds([g.id]);
               editor.store.emitControl([g.id]);
@@ -31,10 +31,10 @@ function GroupFast(props: IProps) {
             <Group theme="filled" size="20" fill="var(--theme-icon)" />
           </a>
         </Tooltip>
-        <Tooltip content="锁定/解锁">
+        <Tooltip content="잠금/잠금 해제">
           <a
             onClick={() => {
-              console.log('锁定');
+              console.log('잠금');
               elements.forEach(elementData => {
                 elementData._lock = !elementData._lock;
               });
@@ -53,10 +53,10 @@ function GroupFast(props: IProps) {
             )}
           </a>
         </Tooltip>
-        <Tooltip content="可见/隐藏">
+        <Tooltip content="보이기/숨기기">
           <a
             onClick={() => {
-              console.log('可见');
+              console.log('보이기');
               elements.forEach(elementData => {
                 elementData._hide = !elementData._hide;
               });
@@ -75,10 +75,10 @@ function GroupFast(props: IProps) {
             )}
           </a>
         </Tooltip>
-        <Tooltip content="复制">
+        <Tooltip content="복사">
           <a
             onClick={() => {
-              console.log('复制');
+              console.log('복사');
               editor.copyElementData();
               // editor.updateCanvas();
             }}
@@ -86,11 +86,11 @@ function GroupFast(props: IProps) {
             <Copy size={20} color="var(--theme-icon)" />
           </a>
         </Tooltip>
-        <Tooltip content="删除">
+        <Tooltip content="삭제">
           <a
             onClick={() => {
               console.log(
-                '删除',
+                '삭제',
                 elements.map(d => d.id),
               );
               editor.store.deleteLayers(elements.map(d => d.id));

@@ -25,9 +25,9 @@ function HotKeys(props: IProps) {
     const pasteFuntion = async event => {
       event.stopPropagation();
       if (editor.copyTempData) {
-        console.log('粘贴元素');
+        console.log('붙여넣기 요소');
         // if (!editor.copyTempData) {
-        //   Toast.error('请先使用 Ctrl + C 进行复制');
+        //   Toast.error('먼저 Ctrl + C를 사용하여 복사하십시오');
         //   return;
         // }
         const elems = editor.cloneElements(editor.copyTempData);
@@ -36,10 +36,10 @@ function HotKeys(props: IProps) {
         editor.setSelectedElementIds(elems.map(d => d.id));
         editor.store.emitControl(elems.map(d => d.id));
       } else {
-        // 如果没有登录，需要先登录
+        // 로그인하지 않은 경우 먼저 로그인해야 합니다
         if (!user.info) {
           // pubsub.publish('showLoginModal');
-          Toast.error('请先登录');
+          Toast.error('먼저 로그인하십시오');
           return;
         }
 
@@ -55,8 +55,8 @@ function HotKeys(props: IProps) {
 
         // 只取剪切板中最新的
         if ((item && item.kind == 'file' && item.type.match(/^image\//i)) || svgFile) {
-          const tid = Toast.info('文件上传中...');
-          // 文件上传
+          const tid = Toast.info('파일 업로드 중...');
+          // 파일 업로드
           const [res, err] = await server.formUpdate({
             files: svgFile ? [svgFile] : [item.getAsFile()],
             filename: `${util.createID()}.${svgFile ? 'svg' : 'png'}`,
@@ -85,8 +85,8 @@ function HotKeys(props: IProps) {
           editor.store.emitControl([imgLayer.id]);
 
           Notification.open({
-            title: '文件上传成功！',
-            content: '支持SVG,JPEG,PNG,GIF的图片格式',
+            title: '파일 업로드 성공!',
+            content: 'SVG, JPEG, PNG, GIF 이미지 형식을 지원합니다',
             duration: 3,
             position: 'bottomRight',
           });
@@ -105,34 +105,34 @@ function HotKeys(props: IProps) {
 
   useHotkeys(
     [
-      'ctrl+c', // 复制
-      'ctrl+v', // 粘贴
-      'ctrl+s', // 保存项目
-      'ctrl+x', // 剪切选中元素
-      'ctrl+-', // 居中缩小画布
-      'ctrl+=', // 居中放大画布
-      'ctrl+0', // 将画布缩放至适合屏幕大小
-      'ctrl+a', // 全选
-      'ctrl+d', // 取消选择
-      'ctrl+z', // 撤销
-      'ctrl+shift+z', // 重做
-      'ctrl+]', // 将选中图层向上移动一层
-      'ctrl+shift+}', // 将选中图层移到最上面
-      'ctrl+[', // 将选中图层向下移动一层
-      'ctrl+shift+{', // 将选中图层移到最下面
-      'shift+up', // 上移10px
-      'shift+down', // 下移10px
-      'shift+left', // 左移10px
-      'shift+right', // 右移10px
-      'up', // 上移1px
-      'down', // 下移1px
-      'left', // 左移1px
-      'right', // 右移1px
-      'delete', // 删除选中元素
-      'backspace', // 删除选中元素
+      'ctrl+c', // 복사
+      'ctrl+v', // 붙여넣기
+      'ctrl+s', // 프로젝트 저장
+      'ctrl+x', // 선택한 요소 잘라내기
+      'ctrl+-', // 캔버스 축소
+      'ctrl+=', // 캔버스 확대
+      'ctrl+0', // 화면 크기에 맞게 캔버스 조정
+      'ctrl+a', // 모두 선택
+      'ctrl+d', // 선택 취소
+      'ctrl+z', // 실행 취소
+      'ctrl+shift+z', // 다시 실행
+      'ctrl+]', // 선택한 레이어를 한 단계 위로 이동
+      'ctrl+shift+}', // 선택한 레이어를 맨 위로 이동
+      'ctrl+[', // 선택한 레이어를 한 단계 아래로 이동
+      'ctrl+shift+{', // 선택한 레이어를 맨 아래로 이동
+      'shift+up', // 위로 10px 이동
+      'shift+down', // 아래로 10px 이동
+      'shift+left', // 왼쪽으로 10px 이동
+      'shift+right', // 오른쪽으로 10px 이동
+      'up', // 위로 1px 이동
+      'down', // 아래로 1px 이동
+      'left', // 왼쪽으로 1px 이동
+      'right', // 오른쪽으로 1px 이동
+      'delete', // 선택한 요소 삭제
+      'backspace', // 선택한 요소 삭제
     ],
     (event: KeyboardEvent, handler: HotkeysEvent) => {
-      console.log('快捷键处理--->', event, handler, handler.keys);
+      console.log('단축키 처리--->', event, handler, handler.keys);
 
       if (handler.ctrl && handler.keys.join('') !== 'v') {
         event.preventDefault();
@@ -142,15 +142,15 @@ function HotKeys(props: IProps) {
         // ctrl + shift + *
         switch (handler.keys.join('')) {
           case 'z':
-            console.log('重做');
+            console.log('다시 실행');
             pubsub.publish('keyboardRedo');
             break;
           case '}':
-            console.log('将选中图层移到最上面');
+            console.log('선택한 레이어를 맨 위로 이동');
             editor.moveTopElement();
             break;
           case '{':
-            console.log('将选中图层移动最下面');
+            console.log('선택한 레이어를 맨 아래로 이동');
             editor.moveBottomElement();
             break;
         }
@@ -158,46 +158,50 @@ function HotKeys(props: IProps) {
         // ctrl + *
         switch (handler.keys.join('')) {
           case ']':
+            console.log('한 단계 위로 이동');
             editor.upOneElement();
             break;
           case '[':
+            console.log('한 단계 아래로 이동');
             editor.downOneElement();
             break;
           case 'z':
-            console.log('撤销');
+            console.log('실행 취소');
             pubsub.publish('keyboardUndo');
             break;
           case 'a':
-            console.log('全选中');
+            console.log('모두 선택');
             editor.setContorlAndSelectedElemenent(editor.pageData.layers.map(layer => layer.id));
             break;
           case 'd':
-            console.log('取消选择');
+            console.log('선택 취소');
             editor.setContorlAndSelectedElemenent([]);
             break;
           case '0':
-            console.log('将画布缩放至适合屏幕大小');
+            console.log('화면 크기에 맞게 캔버스 조정');
             pubsub.publish('keyboardSetViewSize', 'fit');
             break;
           case '-':
-            console.log('居中缩小画布');
+            console.log('캔버스 축소');
             pubsub.publish('keyboardSetViewSize', 'zoomIn');
             break;
           case '=':
-            console.log('居中放大画布');
+            console.log('캔버스 확대');
             pubsub.publish('keyboardSetViewSize', 'zoomOut');
             break;
           case 'c':
+            console.log('요소 복사');
             editor.copyElement();
             break;
           case 'x':
+            console.log('요소 잘라내기');
             editor.cutElement();
             break;
           case 'v':
             // 上面
             break;
           case 's':
-            console.log('手动保存项目');
+            console.log('프로젝트 수동 저장');
             pubsub.publish('keyboardSaveApp');
             break;
         }
@@ -206,7 +210,7 @@ function HotKeys(props: IProps) {
         switch (handler.keys.join('')) {
           case 'up':
             {
-              console.log('上移10px');
+              console.log('위로 10px 이동');
               const elems = editor.getElementDataByIds([...editor.selectedElementIds]);
               elems.forEach(el => {
                 el.y -= 10;
@@ -216,7 +220,7 @@ function HotKeys(props: IProps) {
             break;
           case 'down':
             {
-              console.log('下移10px');
+              console.log('아래로 10px 이동');
               const elems = editor.getElementDataByIds([...editor.selectedElementIds]);
               elems.forEach(el => {
                 el.y += 10;
@@ -226,7 +230,7 @@ function HotKeys(props: IProps) {
             break;
           case 'left':
             {
-              console.log('左移10px');
+              console.log('왼쪽으로 10px 이동');
               const elems = editor.getElementDataByIds([...editor.selectedElementIds]);
               elems.forEach(el => {
                 el.x -= 10;
@@ -236,7 +240,7 @@ function HotKeys(props: IProps) {
             break;
           case 'right':
             {
-              console.log('右移10px');
+              console.log('오른쪽으로 10px ���동');
               const elems = editor.getElementDataByIds([...editor.selectedElementIds]);
               elems.forEach(el => {
                 el.x += 10;
@@ -250,7 +254,7 @@ function HotKeys(props: IProps) {
         switch (handler.keys.join('')) {
           case 'up':
             {
-              console.log('上移1px');
+              console.log('위로 1px 이동');
               const elems = editor.getElementDataByIds([...editor.selectedElementIds]);
               elems.forEach(el => {
                 el.y -= 1;
@@ -260,7 +264,7 @@ function HotKeys(props: IProps) {
             break;
           case 'down':
             {
-              console.log('下移1px');
+              console.log('아래로 1px 이동');
               const elems = editor.getElementDataByIds([...editor.selectedElementIds]);
               elems.forEach(el => {
                 el.y += 1;
@@ -270,7 +274,7 @@ function HotKeys(props: IProps) {
             break;
           case 'left':
             {
-              console.log('左移1px');
+              console.log('왼쪽으로 1px 이동');
               const elems = editor.getElementDataByIds([...editor.selectedElementIds]);
               elems.forEach(el => {
                 el.x -= 1;
@@ -280,7 +284,7 @@ function HotKeys(props: IProps) {
             break;
           case 'right':
             {
-              console.log('右移1px');
+              console.log('오른쪽으로 1px 이동');
               const elems = editor.getElementDataByIds([...editor.selectedElementIds]);
               elems.forEach(el => {
                 el.x += 1;
@@ -291,7 +295,7 @@ function HotKeys(props: IProps) {
           case 'delete':
           case 'backspace':
             {
-              console.log('删除', [...editor.selectedElementIds]);
+              console.log('삭제', [...editor.selectedElementIds]);
               editor.store.deleteLayers([...editor.selectedElementIds]);
               editor.updateCanvas();
               editor.store.emitControl([]);

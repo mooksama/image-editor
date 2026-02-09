@@ -12,7 +12,7 @@ export default function QrcodeComp(props: LayerProps) {
     const img = new Image({
       editable: props.isChild ? false : true,
       url: '',
-      // around: 'center',
+      // 중심으로 정렬
       x: layer.x,
       y: layer.y,
       width: layer.width,
@@ -32,14 +32,14 @@ export default function QrcodeComp(props: LayerProps) {
     return img;
   }, []);
 
-  // 公共use
+  // 공통 use
   useLayerBaseStyle(layer, imgUI as any, props.store, props.zIndex);
 
   useEffect(() => {
     imgUI.width = layer.width;
     imgUI.height = layer.height;
 
-    // 翻转
+    // 뒤집기
     if (layer.flipx) {
       imgUI.scaleX = -1;
     } else {
@@ -51,7 +51,7 @@ export default function QrcodeComp(props: LayerProps) {
       imgUI.scaleY = 1;
     }
 
-    //圆角
+    // 모서리 반경
     imgUI.cornerRadius = layer.cornerRadius ? [...layer.cornerRadius] : undefined;
   }, [layer.width, layer.height, layer.flipx, layer.flipy, layer.cornerRadius]);
 
@@ -65,15 +65,15 @@ export default function QrcodeComp(props: LayerProps) {
       },
     };
 
-    // 创建二维码
+    // QR 코드 생성
     QRCode.toDataURL(layer.content || 'null', { ...options }).then(url => (imgUI.url = url));
 
-    // 控制器变化的时候会触发此函数
+    // 컨트롤러가 변경될 때 이 함수가 호출됩니다.
     props.store.controlScaleFuns[layer.id] = debounce(() => {
       QRCode.toDataURL(layer.content || 'null', { ...options }).then(url => (imgUI.url = url));
     }, 500);
     return () => {
-      // 组件销毁的时候要删除函数的引用
+      // 컴포넌트가 소멸될 때 함수의 참조를 삭제해야 합니다.
       delete props.store.elementDragUp[layer.id];
     };
   }, [layer.content, layer.lightcolor, layer.darkcolor]);

@@ -20,11 +20,11 @@ function Manage() {
 
   return (
     <div>
-      登录后的页面
+      로그인 후 페이지
       <img style={{ width: 100 }} src={user.info?.avatarUrl} alt="" />
-      <Button onClick={startPageLoading}>page loading start</Button>
-      <Button onClick={endPageLoading}>page loading end</Button>
-      <Button onClick={() => userService.logout()}>logout</Button>
+      <Button onClick={startPageLoading}>페이지 로딩 시작</Button>
+      <Button onClick={endPageLoading}>페이지 로딩 종료</Button>
+      <Button onClick={() => userService.logout()}>로그아웃</Button>
     </div>
   );
 }

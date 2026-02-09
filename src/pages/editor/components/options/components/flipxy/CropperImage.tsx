@@ -25,7 +25,7 @@ function CropperImage(props: IProps) {
 
   return (
     <>
-      <Tooltip content="裁切">
+      <Tooltip content="자르기">
         <a
           onClick={() => {
             setVisible(true);
@@ -37,7 +37,7 @@ function CropperImage(props: IProps) {
       </Tooltip>
       <Modal
         width={800 + 50}
-        title="图片裁剪"
+        title="이미지 자르기"
         maskClosable={false}
         footer={null}
         visible={visible}
@@ -66,7 +66,7 @@ function CropperImage(props: IProps) {
               />
               <div className={styles.btns}>
                 <Button onClick={() => setVisible(false)} type="danger">
-                  取消
+                  취소
                 </Button>
                 <Button
                   onClick={() => {
@@ -93,7 +93,7 @@ function CropperImage(props: IProps) {
                     setVisible(false);
                   }}
                 >
-                  确认
+                  확인
                 </Button>
               </div>
             </>

@@ -28,9 +28,9 @@ export default function DragItem(props: IProps) {
 
     di.on('dragmove', (d, pos, e) => {
       // if ($(e.target).closest('#h5dsVideoTracksBody')[0]) {
-      //   console.log('进时间轴了');
+      //   console.log('타임라인에 들어갔습니다');
       // } else {
-      //   console.log('离开了');
+      //   console.log('떠났습니다');
       // }
       setPosition({ ...pos });
     });
@@ -38,7 +38,7 @@ export default function DragItem(props: IProps) {
     di.on('dragend', async (d, pos, e) => {
       // console.log(d, pos, e);
       setItem(null);
-      // 误差3px都算点击事件
+      // 오차 3px 이내는 클릭 이벤트로 간주
       if (Math.abs(pos.x - tempPos.x) < 3 && Math.abs(pos.y - tempPos.y) < 3) {
         await addItem(d);
         tempPos = null;
@@ -49,20 +49,20 @@ export default function DragItem(props: IProps) {
       const offset = $('#h5dsCanvasOuter').offset();
       const { x: appx, y: appy, scaleX, scaleY } = editor.store.app;
       console.log('editor.store.app', editor.store.app, appx, appy, scaleX, scaleY);
-      // 元素拖入的位置
+      // 요소가 드롭된 위치
       const dropPos = {
         x: (pos.x - offset.left - appx) / scaleX,
         y: (pos.y - offset.top - appy) / scaleY,
       };
 
-      // 创建数据
+      // 데이터 생성
       let layer = null;
       if (d.type === 'image') {
         layer = await addImageItem(d, dropPos);
       } else if (d.type === 'text') {
         layer = await addTextItem(d, dropPos);
       }
-      // 选中元素
+      // 요소 선택
       if (layer) {
         editor.setSelectedElementIds([layer.id]);
         editor.store.emitControl([layer.id]);
