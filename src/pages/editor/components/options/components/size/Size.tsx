@@ -18,7 +18,7 @@ function Size(props: IProps) {
     elementData._ratio = util.toNum(elementData.width) / (util.toNum(elementData.height) || 1);
   }
   return (
-    <Item title="尺寸">
+    <Item title="크기">
       <div className={styles.size}>
         <InputNumber
           innerButtons
@@ -34,7 +34,7 @@ function Size(props: IProps) {
           onBlur={() => {
             editor.record({
               type: 'update',
-              desc: '修改W',
+              desc: 'W 수정',
             });
           }}
         />
@@ -46,14 +46,14 @@ function Size(props: IProps) {
           onChange={(v: number) => {
             elementData.height = Math.max(util.toNum(v), 1);
             elementData.width = Math.max(elementData.height * (elementData._ratio || 1), 1);
-            // 同步修改
+            // 동기화 수정
             editor.updateCanvas();
             forceUpdate();
           }}
           onBlur={() => {
             editor.record({
               type: 'update',
-              desc: '修改H',
+              desc: 'H 수정',
             });
           }}
         />

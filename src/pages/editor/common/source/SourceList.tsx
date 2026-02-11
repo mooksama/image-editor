@@ -22,7 +22,7 @@ export interface IProps {
   // checkboxs
   checkboxs?: string[]; // id
   onChangeCheckboxs?: (n: string) => void;
-  sType?: string; // 标记是哪个组件引用 Collect Search等
+  sType?: string; // 어떤 컴포넌트가 참조하는지 표시 Collect Search 등
   callback?: (id: string) => void;
 }
 
@@ -40,7 +40,7 @@ export default function SourceList(props: IProps) {
       <div className={styles.loadingMore}>
         <span>
           <IconSpin spin style={{ color: 'var(--theme-icon)' }} />
-          &nbsp;&nbsp;加载中...
+          &nbsp;&nbsp;로딩 중...
         </span>
       </div>
     );
@@ -65,14 +65,14 @@ export default function SourceList(props: IProps) {
             <div className={styles.loadingMore}>
               <span>
                 <IconSpin spin style={{ color: 'var(--theme-icon)' }} />
-                &nbsp;&nbsp;加载中...
+                &nbsp;&nbsp;로딩 중...
               </span>
             </div>
           )}
         </>
       }
       scrollableTarget={scrollableTarget ? scrollableTarget : `sourceItemsScrollDOM_${props.type}`}
-      endMessage={<p className={styles.noMoreTips}>到底了~</p>}
+      endMessage={<p className={styles.noMoreTips}>끝까지 왔습니다~</p>}
     >
       <WaterFull
         itemWidth={{ video: 120, image: 120, filter: 80, text: 80, effect: 80, transition: 120 }[type]}
@@ -107,12 +107,12 @@ export default function SourceList(props: IProps) {
                     if (sType === 'collect') {
                       server.collectCancle([item.id]);
                       props.callback(item.id);
-                      Toast.success('取消收藏成功！');
+                      Toast.success('즐겨찾기 취소 성공！');
                       return;
                     }
                     server.collect(item.id, type);
                     console.log(type, 'type');
-                    Toast.success('已收藏！');
+                    Toast.success('즐겨찾기 완료！');
                   }}
                   className={styles.save}
                 >

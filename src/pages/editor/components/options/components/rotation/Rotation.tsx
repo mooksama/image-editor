@@ -15,7 +15,7 @@ function Rotation(props: IProps) {
   const elementData = editor.getElementData();
 
   return (
-    <Item title="旋转">
+    <Item title="회전">
       <div className={styles.opacity}>
         <SliderInput
           suffix="°"
@@ -31,7 +31,7 @@ function Rotation(props: IProps) {
           onAfterChange={() => {
             editor.record({
               type: 'update',
-              desc: '修改旋转角度',
+              desc: '회전 각도 수정',
             });
           }}
         />

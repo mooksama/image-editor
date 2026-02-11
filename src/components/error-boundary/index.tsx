@@ -21,31 +21,27 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
       hasError: false,
       errorMsg: '',
       errorMsgMap: {
-        timeout: '抱歉，加载超时！', // 错误信息对应提示文字
+        timeout: '죄송합니다, 로딩 시간이 초과되었습니다!', // 오류 메시지에 대한 안내 텍스트
       },
     };
   }
 
   static getDerivedStateFromError(error: any) {
-    // 更新 state 使下一次渲染能够显示降级后的 UI
+    // state를 업데이트하여 다음 렌더링에서 폴백 UI를 표시할 수 있도록 합니다
     return { hasError: true, errorMsg: error.message };
   }
-
-  // componentDidCatch (error, errorInfo) {
-  //     // 你同样可以将错误日志上报给服务器
-  //     logErrorToMyService(error, errorInfo);
-  // }
+ 
 
   public render() {
     const { errorMsgMap, hasError, errorMsg } = this.state;
 
     if (hasError !== false) {
-      // 你可以自定义降级后的 UI 并渲染
+      // 사용자 정의 UI를 렌더링할 수 있습니다
       return (
         <div className={styles.errorBoundary}>
-          <h1>{errorMsgMap[errorMsg] || '抱歉，加载失败！'}</h1>
+          <h1>{errorMsgMap[errorMsg] || '죄송합니다, 로드에 실패했습니다!'}</h1>
           <Button type="primary" key="console" onClick={() => window.location.reload()}>
-            重新加载
+            다시 로드
           </Button>
         </div>
       );

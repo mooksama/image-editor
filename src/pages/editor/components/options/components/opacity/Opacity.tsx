@@ -14,12 +14,12 @@ function Opacity(props: IProps) {
   const elementData = editor.getElementData() as any;
 
   let opacity = elementData.opacity;
-  // 如果没有设置alpha参数，默认是1
+  // 투명도 설정이 없으면 기본값은 1입니다.
   if (opacity === undefined) {
     opacity = 1;
   }
   return (
-    <Item title="透明度">
+    <Item title="투명도">
       <div className={styles.opacity}>
         <SliderInput
           step={1}
@@ -33,7 +33,7 @@ function Opacity(props: IProps) {
           onAfterChange={() => {
             editor.record({
               type: 'update',
-              desc: '设置透明度',
+              desc: '투명도 설정',
             });
           }}
         />

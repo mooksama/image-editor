@@ -13,7 +13,7 @@ import offset from 'offset';
 // import { util } from '@utils/index';
 
 export interface IProps {
-  gradual?: boolean; // 是否支持渐变？
+  gradual?: boolean; // 그라데이션 지원 여부
   list?: boolean;
   style?: Record<string, any>;
   color: IPaint;
@@ -142,7 +142,7 @@ export default function SetColor(props: IProps) {
 }
 
 interface IPropsColorModal {
-  gradual: boolean; // 是否支持渐变色
+  gradual: boolean; // 그라데이션 색상 지원 여부
   // type: 'solid' | 'linear' | 'radial' | 'angular' | 'image';
   color: IPaint;
   onChange: (c: IPaint) => void;
@@ -228,7 +228,7 @@ export function ColorModal(props: IPropsColorModal) {
   return (
     <div className={styles.modal}>
       <div className={styles.header}>
-        <h1>颜色设置</h1>
+        <h1>색상 설정</h1>
         {props.gradual && (
           <div className={styles.options}>
             <span
@@ -353,7 +353,7 @@ export function ColorModal(props: IPropsColorModal) {
       )}
       {propsColor.type === 'linear' && (
         <div className={styles.gradualRotate}>
-          <h2>角度</h2>
+          <h2>각도</h2>
           <Slider
             value={calculateAngle(propsColor.from.x, propsColor.from.y, propsColor.to.x, propsColor.to.y)}
             onChange={v => {
@@ -406,7 +406,7 @@ export function ColorModal(props: IPropsColorModal) {
               <a
                 onClick={() => {
                   if (!(window as any).EyeDropper) {
-                    Toast.error('浏览器不支持');
+                    Toast.error('브라우저가 지원하지 않습니다.');
                     return;
                   }
                   // 创建取色器

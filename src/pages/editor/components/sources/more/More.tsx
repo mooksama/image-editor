@@ -22,7 +22,7 @@ export default function More(props: IProps) {
   }
 
   const addPlus = a => {
-    console.log('添加插件', a);
+    console.log('플러그인 추가', a);
     const exLayer = exLayers.find(d => d.config.pid === a.id);
     if (exLayer) {
       const ndata = new exLayer.LayerData();
@@ -31,7 +31,7 @@ export default function More(props: IProps) {
       editor.updateCanvas();
       editor.store.emitControl([ndata.id]);
     } else {
-      Toast.warning('作者还没时间搞，等你贡献代码');
+      Toast.warning('작가가 아직 시간을 내지 못했으니, 당신이 코드를 기여해 주세요');
     }
     // switch (d.id) {
     //   case 'chart':
@@ -46,7 +46,7 @@ export default function More(props: IProps) {
   return (
     <div style={{ height: '100%', display: props.show ? 'block' : 'none' }}>
       <div className={styles.moreList + ' scroll'}>
-        <h1 className={styles.title}>更多插件</h1>
+        <h1 className={styles.title}>더 많은 플러그인</h1>
         <WaterFull
           itemWidth={60}
           itemClassName={styles.waterfull}
@@ -71,23 +71,23 @@ export default function More(props: IProps) {
           list={[
             {
               id: 'qrcode',
-              name: '二维码',
+              name: 'QR 코드',
               icon: <PayCodeOne theme="filled" size="25" fill="var(--theme-icon)" />,
             },
             {
               id: 'barcode',
-              name: '条形码',
+              name: '바코드',
               icon: <BarCode theme="filled" size="25" fill="var(--theme-icon)" />,
             },
             {
               id: 'chart',
-              name: '图表',
+              name: '차트',
               vip: false,
               icon: <ChartHistogramOne theme="filled" size="25" fill="var(--theme-icon)" />,
             },
             {
               id: 'watermark',
-              name: '水印',
+              name: '워터마크',
               vip: false,
               icon: <Audit theme="filled" size="25" fill="var(--theme-icon)" />,
             },

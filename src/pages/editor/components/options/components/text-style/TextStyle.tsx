@@ -44,7 +44,7 @@ function TextStyle(props: IProps) {
     forceUpdate();
     editor.record({
       type: 'update',
-      desc: '文本对齐' + key,
+      desc: '텍스트 정렬' + key,
     });
   };
 
@@ -77,7 +77,7 @@ function TextStyle(props: IProps) {
               elementData.fontFamilyURL = fontFamily.url;
 
               Toast.info({
-                content: '字体加载中...',
+                content: '폰트 로드 중...',
                 duration: 99999,
               });
               loadFont(fontFamily.name, fontFamily.url).then(() => {
@@ -86,11 +86,11 @@ function TextStyle(props: IProps) {
                 Toast.destroyAll();
                 editor.record({
                   type: 'update',
-                  desc: '修改字体',
+                  desc: '글꼴 변경',
                 });
               });
             }}
-            value={elementData.textStyle.fontFamily || '默认'}
+            value={elementData.textStyle.fontFamily || '기본'}
           >
             {fontFamilys.map(item => {
               return (
@@ -108,7 +108,7 @@ function TextStyle(props: IProps) {
             onBlur={() => {
               editor.record({
                 type: 'update',
-                desc: '修改文字大小',
+                desc: '글꼴 크기 변경',
               });
             }}
           />
@@ -130,7 +130,7 @@ function TextStyle(props: IProps) {
               forceUpdate();
               editor.record({
                 type: 'update',
-                desc: '加粗&取消',
+                desc: '굵게 & 취소',
               });
             }}
           >
@@ -152,7 +152,7 @@ function TextStyle(props: IProps) {
               forceUpdate();
               editor.record({
                 type: 'update',
-                desc: '倾斜',
+                desc: '기울임',
               });
             }}
           >
@@ -175,7 +175,7 @@ function TextStyle(props: IProps) {
               forceUpdate();
               editor.record({
                 type: 'update',
-                desc: '下划线',
+                desc: '밑줄',
               });
             }}
           >
@@ -220,7 +220,7 @@ function TextStyle(props: IProps) {
             onBlur={() => {
               editor.record({
                 type: 'update',
-                desc: '修改文字行高',
+                desc: '텍스트 행간 변경',
               });
             }}
           />
@@ -237,13 +237,13 @@ function TextStyle(props: IProps) {
             onBlur={() => {
               editor.record({
                 type: 'update',
-                desc: '修改文字间距',
+                desc: '텍스트 간격 변경',
               });
             }}
           />
         </div>
       </div>
-      <Item title="文字颜色">
+      <Item title="텍스트 색상">
         <SetColor
           gradual={true}
           list={true}
@@ -256,8 +256,8 @@ function TextStyle(props: IProps) {
           }}
         />
       </Item>
-      {/* <Item title="文字背景"></Item> */}
-      <Item title="文字描边">
+      {/* <Item title="텍스트 배경"></Item> */}
+      <Item title="텍스트 테두리">
         <div className={styles.textSpace}>
           <InputNumber
             min={0}
@@ -273,7 +273,7 @@ function TextStyle(props: IProps) {
             onBlur={() => {
               editor.record({
                 type: 'update',
-                desc: '修改文字描边',
+                desc: '텍스트 테두리 변경',
               });
             }}
           />
@@ -288,13 +288,13 @@ function TextStyle(props: IProps) {
               editor.updateCanvas();
               editor.record({
                 type: 'update',
-                desc: '修改文字描边颜色',
+                desc: '텍스트 테두리 색상 변경',
               });
             }}
           />
         </div>
       </Item>
-      {/* <Item title="背景">
+      {/* <Item title="배경">
         <div className={styles.backgrounds}>
           <Color />
           <a className={styles.clearColor}>

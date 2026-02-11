@@ -25,7 +25,7 @@ export default function Collect(props: IProps) {
   });
   const { type } = props;
 
-  // 获取素材
+  // 자료 가져오기
   const getList = useCallback(async () => {
     const { list, hasMore } = await getItems(type, params.current, items, server.getCollects);
     console.log('list', list);
@@ -33,7 +33,7 @@ export default function Collect(props: IProps) {
     setHasMore(hasMore);
   }, [items]);
 
-  // 点击取消收藏后需要过滤掉取消的元素
+  // 즐겨찾기 취소를 클릭한 후 취소된 요소를 필터링해야 합니다.
   const handleItems = (id: string) => {
     const list = items.filter((item)=>{
       return item.id !== id;
@@ -56,7 +56,7 @@ export default function Collect(props: IProps) {
           <a className={styles.back} onClick={() => props.onBack()}>
             <Left theme="outline" size="24" fill="var(--theme-icon)" />
           </a>
-          <h1 className={styles.title}>我的收藏</h1>
+          <h1 className={styles.title}>나의 즐겨찾기</h1>
         </section>
       </div>
       <div className={styles.list + ' scroll'}>

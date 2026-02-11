@@ -35,7 +35,7 @@ function OptionsInner(props: IProps) {
         if (exLayer) {
           return <exLayer.Options key={elementData.id} element={elementData} />;
         }
-        return <div>未知类型</div>;
+        return <div>알 수 없는 유형</div>;
     }
   } else if (elements.length > 1) {
     return <GroupOptions />;
@@ -46,7 +46,7 @@ function OptionsInner(props: IProps) {
       <Empty
         image={<IllustrationNoResult style={{ width: 150, height: 150 }} />}
         darkModeImage={<IllustrationNoResultDark style={{ width: 150, height: 150 }} />}
-        description={'类型错误'}
+        description={'유형 오류'}
       />
     </div>
   );

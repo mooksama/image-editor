@@ -21,169 +21,169 @@ import {
 export interface IProps {}
 
 /**
-  'ctrl+c', // 复制 -
-  'ctrl+v', // 粘贴 -
-  'ctrl+s', // 保存项目 -
-  'ctrl+x', // 剪切选中元素 -
-  'ctrl+-', // 居中缩小画布 -
-  'ctrl+=', // 居中放大画布 -
-  'ctrl+0', // 将画布缩放至适合屏幕大小 -
-  'ctrl+a', // 全选 -
-  'ctrl+d', // 取消选择 -
-  'ctrl+z', // 撤销 -
-  'ctrl+shift+z', // 重做 -
-  'ctrl+]', // 将选中图层向上移动一层 -
-  'ctrl+shift+]', // 将选中图层移到最上面 -
-  'ctrl+[', // 将选中图层向下移动一层 -
-  'ctrl+shift+[', // 将选中图层移到最下面 -
-  'shift+up', // 上移10px -
-  'shift+down', // 下移10px -
-  'shift+left', // 左移10px -
-  'shift+right', // 右移10px -
-  'up', // 上移1px -
-  'down', // 下移1px -
-  'left', // 左移1px -
-  'right', // 右移1px -
-  'delete', // 删除选中元素 -
+  'ctrl+c', // 복사 -
+  'ctrl+v', // 붙여넣기 -
+  'ctrl+s', // 프로젝트 저장 -
+  'ctrl+x', // 선택한 요소 잘라내기 -
+  'ctrl+-', // 캔버스 축소 -
+  'ctrl+=', // 캔버스 확대 -
+  'ctrl+0', // 캔버스를 화면 크기에 맞게 조정 -
+  'ctrl+a', // 모두 선택 -
+  'ctrl+d', // 선택 취소 -
+  'ctrl+z', // 실행 취소 -
+  'ctrl+shift+z', // 다시 실행 -
+  'ctrl+]', // 선택한 레이어를 한 단계 위로 이동 -
+  'ctrl+shift+]', // 선택한 레이어를 맨 위로 이동 -
+  'ctrl+[', // 선택한 레이어를 한 단계 아래로 이동 -
+  'ctrl+shift+[', // 선택한 레이어를 맨 아래로 이동 -
+  'shift+up', // 10px 위로 이동 -
+  'shift+down', // 10px 아래로 이동 -
+  'shift+left', // 10px 왼쪽으로 이동 -
+  'shift+right', // 10px 오른쪽으로 이동 -
+  'up', // 1px 위로 이동 -
+  'down', // 1px 아래로 이동 -
+  'left', // 1px 왼쪽으로 이동 -
+  'right', // 1px 오른쪽으로 이동 -
+  'delete', // 선택한 요소 삭제 -
  */
 export default function KeyboardModal(props: IProps) {
   const [visible, setVisible] = useState(false);
 
   const items = [
     {
-      name: '复制',
+      name: '복사',
       win: 'Ctrl + C',
       mac: '⌘ + C',
       icon: <Copy theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '剪切',
+      name: '잘라내기',
       win: 'Ctrl + X',
       mac: '⌘ + X',
       icon: <Clipboard theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '粘贴',
+      name: '붙여넣기',
       win: 'Ctrl + V',
       mac: '⌘ + V',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '全选',
+      name: '모두 선택',
       win: 'Ctrl + A',
       mac: '⌘ + A',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '取消选择',
+      name: '선택 취소',
       win: 'Ctrl + D',
       mac: '⌘ + D',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '上移一层',
+      name: '한 단계 위로 이동',
       win: 'Ctrl + ]',
       mac: '⌘ + ]',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '下移一层',
+      name: '한 단계 아래로 이동',
       win: 'Ctrl + [',
       mac: '⌘ + [',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '移到顶层',
+      name: '맨 위로 이동',
       win: 'Ctrl + Shift + ]',
       mac: '⌘ + Shift + ]',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '移到底层',
+      name: '맨 아래로 이동',
       win: 'Ctrl + Shift + [',
       mac: '⌘ + Shift + [',
       icon: <Intersection theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '删除',
+      name: '삭제',
       win: 'Delete/Backspace',
       mac: 'Delete/Backspace',
       icon: <Delete theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '撤销',
+      name: '실행 취소',
       win: 'Ctrl + Z',
       mac: '⌘ + Z',
       icon: <Return theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '重做',
+      name: '다시 실행',
       win: 'Ctrl + Shift + Z',
       mac: '⌘ + Shift + Z',
       icon: <Return style={{ transform: `scaleX(-1)` }} theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '右移1px',
+      name: '1px 오른쪽으로 이동',
       win: '→',
       mac: '→',
       icon: <ArrowCircleRight theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '左移1px',
+      name: '1px 왼쪽으로 이동',
       win: '←',
       mac: '←',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '上移1px',
+      name: '1px 위로 이동',
       win: '↑',
       mac: '↑',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '下移1px',
+      name: '1px 아래로 이동',
       win: '↓',
       mac: '↓',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '左移10px',
+      name: '10px 왼쪽으로 이동',
       win: 'Shift + ←',
       mac: 'Shift + ←',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '上移10px',
+      name: '10px 위로 이동',
       win: 'Shift + ↑',
       mac: 'Shift + ↑',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '下移10px',
+      name: '10px 아래로 이동',
       win: 'Shift + ↓',
       mac: 'Shift + ↓',
       icon: <ArrowCircleLeft theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '画布放大',
+      name: '캔버스 확대',
       win: 'Ctrl + +',
       mac: '⌘ + +',
       icon: <ZoomIn theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '画布缩小',
+      name: '캔버스 축소',
       win: 'Ctrl + -',
       mac: '⌘ + -',
       icon: <ZoomOut theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '画布调至最佳尺寸',
+      name: '캔버스를 화면 크기에 맞게 조정',
       win: 'Ctrl + 0',
       mac: '⌘ + 0',
       icon: <ZoomOut theme="outline" size="20" fill="var(--theme-icon)" />,
     },
     {
-      name: '保存',
+      name: '저장',
       win: 'Ctrl + S',
       mac: '⌘ + S',
       icon: <LinkCloudSucess theme="outline" size="20" fill="var(--theme-icon)" />,
@@ -200,7 +200,7 @@ export default function KeyboardModal(props: IProps) {
     <>
       <Modal
         width={1000}
-        title="快捷键"
+        title="단축키"
         visible={visible}
         onCancel={() => setVisible(false)}
         closeOnEsc={true}

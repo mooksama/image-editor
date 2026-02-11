@@ -23,7 +23,7 @@ function MainLayout({ route }: any) {
   }
 
   if (!user.info) {
-    return <div>没有访问权限</div>;
+    return <div>접근 권한이 없습니다</div>;
   }
 
   return (

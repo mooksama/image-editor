@@ -1,7 +1,7 @@
 // 配置
 const config = {
   secretKey: 'x&S#acLCx', //
-  apiHost: '',
+  apiHost: 'http://61.111.38.9:5000',
   prefix: 'img', // 项目前缀，用于设置localStroage的名称
   resourcesHost: 'https://cdn.h5ds.com', // CDN资源路径
   host: 'https://video.h5ds.com', // 二维码扫描有用到

@@ -1,7 +1,7 @@
 import { ViewData, ImageLayer, BasePage, TextLayer } from './core/types/data';
 
 export const tdata: ViewData = {
-  name: 'mock数据',
+  name: '제목없음',
   desc: '暂无描述',
   version: '1.0.0',
   thumb: '',

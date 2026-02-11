@@ -20,7 +20,7 @@ function Border(props: IProps) {
 
   return (
     <Item
-      title="边框"
+      title="테두리"
       extra={
         <Switch
           size="small"
@@ -54,7 +54,7 @@ function Border(props: IProps) {
           <div className={styles.inputs}>
             <InputNumber
               innerButtons
-              prefix="宽度"
+              prefix="너비"
               value={util.toNum(elementData.border.strokeWidth)}
               onChange={(v: number) => {
                 elementData.border.strokeWidth = util.toNum(v);
@@ -65,7 +65,7 @@ function Border(props: IProps) {
               onBlur={() => {
                 editor.record({
                   type: 'update',
-                  desc: '修改阴影X',
+                  desc: '테두리 X 수정',
                 });
               }}
             />
@@ -90,12 +90,12 @@ function Border(props: IProps) {
                 />
               }
             >
-              <Select.Option value="-">直线</Select.Option>
-              <Select.Option value="3-3">虚线1</Select.Option>
-              <Select.Option value="6-6">虚线2</Select.Option>
-              <Select.Option value="9-9">虚线3</Select.Option>
-              <Select.Option value="12-12">虚线4</Select.Option>
-              <Select.Option value="15-15">虚线5</Select.Option>
+              <Select.Option value="-">직선</Select.Option>
+              <Select.Option value="3-3">점선1</Select.Option>
+              <Select.Option value="6-6">점선2</Select.Option>
+              <Select.Option value="9-9">점선3</Select.Option>
+              <Select.Option value="12-12">점선4</Select.Option>
+              <Select.Option value="15-15">점선5</Select.Option>
             </Select>
           </div>
         </div>

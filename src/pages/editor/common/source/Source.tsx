@@ -31,14 +31,14 @@ export default function Source(props: IProps) {
   });
   const { type } = props;
 
-  // 获取素材
+  // 자료 가져오기
   const getMaterialList = useCallback(async () => {
     const { list, hasMore } = await getItems(type, params.current, items);
     setItems(list);
     setHasMore(hasMore);
   }, [items]);
 
-  // 获取分类
+  // 분류 가져오기
   const getTypeList = useCallback(async () => {
     if (type === 'template') {
       const [res, err] = await server.getTemplateTypes();
@@ -55,7 +55,7 @@ export default function Source(props: IProps) {
   }, [type]);
 
   useEffect(() => {
-    // 获取分类列表
+    // 분류 목록 가져오기
     getTypeList();
     getMaterialList();
   }, []);
@@ -118,7 +118,7 @@ export default function Source(props: IProps) {
             onEnterPress={(e: any) => {
               setKeywords(e.target.value);
             }}
-            placeholder="搜索"
+            placeholder="검색"
             suffix={<IconSearch size={18} style={{ marginRight: 5 }} />}
             showClear
           />

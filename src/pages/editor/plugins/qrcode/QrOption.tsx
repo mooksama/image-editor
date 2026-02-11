@@ -16,7 +16,7 @@ function QrOption(props: IProps) {
   const [forceUpdate] = useUpdate();
   return (
     <>
-      <Item title="二维码内容">
+      <Item title="QR 코드 내용">
         <TextArea
           value={elementData.content}
           onChange={e => {
@@ -29,12 +29,12 @@ function QrOption(props: IProps) {
           onBlur={() => {
             editor.record({
               type: 'update',
-              desc: '修改二维码文本内容',
+              desc: 'QR 코드 텍스트 내용 수정',
             });
           }}
         />
       </Item>
-      <Item title="背景色">
+      <Item title="배경색">
         <SetColor
           list={true}
           color={{
@@ -47,12 +47,12 @@ function QrOption(props: IProps) {
             forceUpdate();
             editor.record({
               type: 'update',
-              desc: '修改二维码颜色',
+              desc: 'QR 코드 색상 수정',
             });
           }}
         />
       </Item>
-      <Item title="前景色">
+      <Item title="전경색">
         <SetColor
           list={true}
           color={{
@@ -66,7 +66,7 @@ function QrOption(props: IProps) {
             forceUpdate();
             editor.record({
               type: 'update',
-              desc: '修改二维码颜色',
+              desc: 'QR 코드 색상 수정',
             });
           }}
         />

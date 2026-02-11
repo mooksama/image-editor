@@ -1,12 +1,11 @@
 import '@theme/theme.less';
 import React, { Component, createRef } from 'react';
-// import { Redirect, Switch } from 'react-router-dom'; // 路由
 import { userService } from '@server/index';
 import { pubsub, util } from '@utils/index';
 import { config } from '@config/index';
 import { renderRoutes } from 'react-router-config';
 import { user } from '@stores/user';
-// import { theme, ThemeName } from './theme';
+import { authService } from './services/authService'; // 추가!
 
 interface AppProps {
   Router: any;
@@ -21,7 +20,6 @@ class App extends Component<AppProps> {
   constructor(props: AppProps) {
     super(props);
     this.routerRef = createRef();
-    // theme.setTheme(ThemeName.DARK);
   }
 
   /**
@@ -44,9 +42,32 @@ class App extends Component<AppProps> {
     }
   };
 
+  // 🆕 localStorage에서 사용자 정보 복원
+  restoreUserSession = () => {
+    const savedToken = authService.getToken();
+    const savedUser = authService.getCurrentUser();
+    
+    console.log('Restoring session...', { savedToken, savedUser });
+    
+    if (savedToken && savedUser) {
+      // MobX store에 복원
+      user.setToken(savedToken);
+      user.setUserInfo({
+        id: savedUser.id,
+        nick_name: savedUser.name,
+        email: savedUser.email,
+        avatar: '',
+        vip_status: 0,
+      });
+      
+      console.log('Session restored!', user.info);
+    }
+  };
+
   componentDidMount() {
     (window as any).RouterHistory = this.routerRef.current.history;
     this.urlTokenLogin();
+    this.restoreUserSession(); // 🆕 추가!
 
     // 多语言处理
     pubsub.subscribe('setLanguage', () => {

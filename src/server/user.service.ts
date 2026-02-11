@@ -5,130 +5,173 @@ import { util } from '@utils/index';
 const _window = window as any;
 
 /**
- * @desc 测试用
+ * @desc 테스트용
  */
 class UserService extends BasicService {
   constructor() {
     super();
-    // 保存token
+    // 토큰 저장
     if (user.token) {
       super._setRqHeaderToken(user.token);
     }
   }
 
-  // 获取类型配置
-  getTypeTree = async () => {
-    // const res = [
-    //   { id: 1, key: 'material' },
-    //   { id: 2, key: 'template' },
-    // ];
-    // return [res];
-    return await this.get(`/api/v1/common/types/tree`);
-  };
+  // // 유형 구성 가져오기
+  // getTypeTree = async () => {
+  //   return await this.get(`/api/v1/common/types/tree`);
+  // };
 
-  // 获取登录的二维码
-  getWxQrcode = async () => {
-    //
-    return await this.get(`/api/v1/account/login/wqr`);
-  };
+  // // 로그인 QR 코드 가져오기
+  // getWxQrcode = async () => {
+  //   return await this.get(`/api/v1/account/login/wqr`);
+  // };
 
-  // 查询用户是否通过二维码关注
-  seekWxLogin = async (sn: string) => {
-    return await this.get(`/api/v1/account/login/wset?sn=${sn}`);
-  };
+  // // 사용자가 QR 코드를 통해 팔로우했는지 확인
+  // seekWxLogin = async (sn: string) => {
+  //   return await this.get(`/api/v1/account/login/wset?sn=${sn}`);
+  // };
 
-  // 获取手机验证码
-  getRegisterSMS = async (data: any) => {
-    return await this.post(`/api/v1/account/sms/register`, data);
-  };
+  // // 휴대폰 인증 코드 가져오기
+  // getRegisterSMS = async (data: any) => {
+  //   return await this.post(`/api/v1/account/sms/register`, data);
+  // };
 
-  // 获取登录手机验证码
-  getLoginSMS = async (data: any) => {
-    return await this.post(`/account/sms/login`, data);
-  };
+  // // 로그인 휴대폰 인증 코드 가져오기
+  // getLoginSMS = async (data: any) => {
+  //   return await this.post(`/account/sms/login`, data);
+  // };
 
-  // 验证码
+
+  // // WeChat 바인딩 - QR 코드 가져오기
+  // getBindWeixinCode = async () => {
+  //   return await this.get('/api/v1/account/bind-weixin/wqr');
+  // };
+
+  // // WeChat 바인딩 - 결과 폴링
+  // bindWeixinSeek = async (sn: string) => {
+  //   return await this.get('/api/v1/account/bind-weixin/wset?sn=' + sn);
+  // };
+
+  // 캡차 가져오기
   getCaptcha = async () => {
     return await this.get(`/api/v1/account/captcha`);
+  }; 
+  // 이메일 중복 체크
+  checkEmailExists = async (email: string) => {
+    return await this.get(`/api/v1/account/check-email?email=${email}`);
   };
-
-  // 绑定微信-获取二维码
-  getBindWeixinCode = async () => {
-    return await this.get('/api/v1/account/bind-weixin/wqr');
-  };
-
-  // 微信绑定-结果轮训
-  bindWeixinSeek = async (sn: string) => {
-    return await this.get('/api/v1/account/bind-weixin/wset?sn=' + sn);
-  };
-
-  // 发送邮箱验证码
+  // 이메일 인증 코드 보내기
   sendEmailCode = async (data: any) => {
     return await this.post(`/api/v1/account/mail/register`, data);
   };
 
-  // 绑定邮箱
+  // 이메일 바인딩
   bindEmail = async (data: any) => {
     return await this.post(`/api/v1/account/mail/bind-email`, data);
   };
 
-  // 绑定手机号 phoneNumber, code
-  bindPhone = async (data: { phoneNumber: string; code: string }) => {
-    return await this.post(`/api/v1/account/bind-mobile`, data);
-  };
+  // // 휴대폰 번호 바인딩 phoneNumber, code
+  // bindPhone = async (data: { phoneNumber: string; code: string }) => {
+  //   return await this.post(`/api/v1/account/bind-mobile`, data);
+  // };
 
-  // 绑定手机号，发送验证码 mobile  captchaCode
-  getCodeBindMobile = async (data: { mobile: string; captchaCode: string }) => {
-    return await this.post(`/api/v1/account/sms/bind-mobile`, data);
-  };
+  // // 휴대폰 번호 바인딩, 인증 코드 보내기 mobile captchaCode
+  // getCodeBindMobile = async (data: { mobile: string; captchaCode: string }) => {
+  //   return await this.post(`/api/v1/account/sms/bind-mobile`, data);
+  // };
 
-  // 找回密码发送手机验证码 mobile captchaCode
-  getCodeResetPassword = async (data: { mobile: string; captchaCode: string; captchaKey: string }) => {
-    return await this.post(`/api/v1/account/sms/recover-password`, data);
-  };
+  // // 비밀번호 찾기 휴대폰 인증 코드 보내기 mobile captchaCode
+  // getCodeResetPassword = async (data: { mobile: string; captchaCode: string; captchaKey: string }) => {
+  //   return await this.post(`/api/v1/account/sms/recover-password`, data);
+  // };
 
+  
+  // 카카오 회원가입이 되어있는지 확인
+  checkKakaoUser = async (kakaoId: string) => {
+    try {
+      const [res, err] = await this.get(`/api/v1/account/check-kakao-user?kakaoId=${kakaoId}`);
+      if (err) {
+        return [null, err];
+      }
+      return [res, null];
+    } catch (error) {
+      return [null, '카카오 사용자 확인 중 오류가 발생했습니다'];
+    }
+  };
+  kakaoLogin = async (kakaoData: {
+    kakaoId: string;
+    nickname: string;
+    profileImage: string;
+    phoneNumber: string;
+    accessToken: string;
+  }) => {
+    try {
+      const [res, err] = await this.post('/api/v1/account/kakao-login', kakaoData);
+      if (err) {
+        return [null, err];
+      }
+      return [res, null];
+    } catch (error) {
+      return [null, '카카오 로그인 중 오류가 발생했습니다'];
+    }
+  };
   /**
-   * 注册
+   * 등록
    * @param {*} registerInfo
    */
   register = async (registerInfo: { username: string; password: string; captchaCode: string }) => {
-    return await this.post(`/api/v1/account/register`, registerInfo);
-  };
+    try {
+      // 이메일 중복 체크
+      const [existsRes, existsErr] = await this.checkEmailExists(registerInfo.username);
+      if (existsErr) {
+        return [null, existsErr];
+      }
+      if (existsRes?.exists) {
+        return [null, '이미 사용중인 이메일입니다'];
+      }
 
-  // 获取app统计数据
-  getStatistics = async () => {
-    return await this.get(`/api/v1/open/app-statistics`);
-  };
+      // 회원가입 요청
+      const [res, err] = await this.post(`/api/v1/account/register`, registerInfo);
+      if (err) {
+        return [null, err];
+      }
 
-  // 登录
-  login = async (params: any) => {
-    const [res, err] = await this.post(`/api/v1/account/login`, params);
-    if (res) {
-      this._setRqHeaderToken(res.token);
-    } else {
-      console.log(err);
+      return [res, null];
+    } catch (error: any) {
+      return [null, error.message || '회원가입 중 오류가 발생했습니다'];
     }
-    return [res, err];
   };
 
-  // 登录
-  loginFvideo = async (params: any) => {
-    const [res, err] = await this.post(`https://fvideo.h5ds.com/api/v1/account/login`, params);
-    if (res) {
-      this._setRqHeaderToken(res.token);
-    } else {
-      console.log(err);
+  // // 앱 통계 데이터 가져오기
+  // getStatistics = async () => {
+  //   return await this.get(`/api/v1/open/app-statistics`);
+  // };
+
+  // 로그인
+  login = async (params: {
+    username: string;
+    password: string;
+    type: string;
+  }) => {
+    try {
+      const [res, err] = await this.post(`/api/v1/account/login`, params);
+      if (res) {
+        this._setRqHeaderToken(res.token);
+        user.setToken(res.token);
+      }
+      return [res, err];
+    } catch (error: any) {
+      return [null, error.message || '로그인 중 오류가 발생했습니다'];
     }
-    return [res, err];
   };
-
-  // 获取签到数据
+  
+  // 체크인 데이터 가져오기
   userSign = async () => {
     let stDate = util.formatDate(+new Date(), 'YYYY-MM-DD');
     return await this.get('/api/v1/api/user-sign?stDate=' + stDate);
   };
 
-  // 签到
+  // 체크인
   doUserSign = async () => {
     return await this.post('/api/v1/api/user-sign');
   };
@@ -145,7 +188,7 @@ class UserService extends BasicService {
     }
   };
 
-  // 退出
+  // 로그아웃
   logout = async () => {
     const res = await this.get(`/api/v1/account/logout`);
     user.clearUserInfo();
@@ -154,7 +197,7 @@ class UserService extends BasicService {
   };
 
   /**
-   * 更新用户信息，如果userInfo包含 avatarUrl,则修改头像，否则修改 nickName、email、telphone
+   * 사용자 정보 업데이트
    * @param {*} userInfo
    */
   updateUserInfo = async (userInfo: any) => {
@@ -162,14 +205,14 @@ class UserService extends BasicService {
   };
 
   /**
-   * 修改密码
+   * 비밀번호 변경
    */
   changePassword = async (data: { username: string; password: string; captchaCode: string }) => {
     return await this.post('/api/v1/account/change-password', data);
   };
 
   /**
-   * 找回密码
+   * 비밀번호 찾기
    * @param {*} data
    */
   findPassword = async (data: { mobile: string; password: string; code: string }) => {
@@ -177,18 +220,21 @@ class UserService extends BasicService {
   };
 
   /**
-   * 获取用户信息
+   * 사용자 정보 가지고 오기
    */
   getUserDetail = async () => {
-    const [res, err] = await this.get('/api/v1/account/info');
-    if (err) {
-      console.error('登录失效');
-      // 退出登录
-      user.logout();
-      return [res, err];
+    try {
+      const [res, err] = await this.get('/api/v1/account/info');
+      if (err) {
+        console.error('로그인 실패');
+        user.logout();
+        return [null, err];
+      }
+      user.setUserInfo(res);
+      return [res, null];
+    } catch (error: any) {
+      return [null, error.message || '사용자 정보를 가져오는 중 오류가 발생했습니다'];
     }
-    user.setUserInfo(res);
-    return [res, err];
   };
 }
 

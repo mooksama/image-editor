@@ -18,7 +18,7 @@ function PageOption(props: IProps) {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
   return (
     <div className={styles.page + ' scroll'}>
-      <Item title="页面名称">
+      <Item title="페이지 이름">
         <Input
           value={pageData.name}
           onChange={e => {
@@ -27,22 +27,22 @@ function PageOption(props: IProps) {
           }}
         />
       </Item>
-      <Item title="快捷操作">
+      <Item title="빠른 작업">
         <div className={styles.space}>
-          <Tooltip content="复制画布">
+          <Tooltip content="캔버스 복사">
             <a
               onClick={() => {
                 const nPage = util.toJS(editor.pageData);
                 nPage.id = util.createID();
                 editor.data.pages.push(nPage);
                 editor.selectPageId = nPage.id;
-                Toast.success('已复制');
+                Toast.success('복사 완료');
               }}
             >
               <Copy size={20} color="var(--theme-icon)" />
             </a>
           </Tooltip>
-          <Tooltip content="删除画布">
+          <Tooltip content="캔버스 삭제">
             <a
               onClick={() => {
                 transaction(() => {
@@ -52,7 +52,7 @@ function PageOption(props: IProps) {
                     editor.data.selectPageId = editor.data.pages[0].id;
                     editor.updateCanvasKey = util.createID();
                   } else {
-                    Toast.error('至少保留一个页面');
+                    Toast.error('최소 하나의 페이지를 유지해야 합니다');
                   }
                 });
                 // editor.updateCanvas();
@@ -63,7 +63,7 @@ function PageOption(props: IProps) {
           </Tooltip>
         </div>
       </Item>
-      <Item title="背景色">
+      <Item title="배경색">
         <SetColor
           gradual={true}
           list={true}
@@ -76,7 +76,7 @@ function PageOption(props: IProps) {
         />
       </Item>
       <Item
-        title="修改尺寸"
+        title="크기 수정"
         // extra={
         //   <span style={{ opacity: 0.5 }}>
         //     {pageData.width}px * {pageData.height}px
@@ -114,8 +114,8 @@ function PageOption(props: IProps) {
                 key={d.name}
                 onClick={() => {
                   Modal.confirm({
-                    title: '是否要修改画布尺寸？',
-                    content: '修改后元素会重新计算坐标',
+                    title: '캔버스 크기를 수정하시겠습니까?',
+                    content: '수정 후 요소의 좌표가 다시 계산됩니다',
                     onOk: () => {
                       pageData.height = d.height;
                       pageData.width = d.width;

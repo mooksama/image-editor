@@ -21,20 +21,20 @@ import rotateIco from './rotate.png';
 
 export interface IViewProps {
   data: BasePage;
-  target: HTMLElement; // canvas放入的DOM容器
+  target: HTMLElement; // canvas가 들어갈 DOM 컨테이너
   env: ENV;
-  resourceHost: string; // 资源文件前缀
-  exLayers?: ExLayer[]; // 扩展组件
-  // 渲染后执行
+  resourceHost: string; // 리소스 파일 접두사
+  exLayers?: ExLayer[]; // 확장 컴포넌트
+  // 렌더링 후 실행
   callback?: (store: Store) => void;
-  // 编辑器事件
+  // 편집기 이벤트
   onControlSelect?: (e: EditorEvent, ids: string[]) => void;
   onControlScale?: (e: EditorEvent) => void;
   onControlMove?: (e: EditorEvent) => void;
   onControlRotate?: (e: EditorEvent) => void;
   onDragUp?: (e: EditorEvent) => void;
   onContextMenu?: (e: EditorEvent, layers: BaseLayer[]) => void;
-  addRecordCallback?: () => void; // 添加记录的回调
+  addRecordCallback?: () => void; // 기록 추가 콜백
 }
 
 export default function View(props: IViewProps) {
@@ -93,7 +93,7 @@ export default function View(props: IViewProps) {
         // console.log('rotate', e);
         const list = (e as any).current.leafList.list;
         const layers = store.getLayerByIds(list.map(d => d.id));
-        // 数据同步
+        // 데이터 동기화
         list.forEach(box => {
           const layer = layers.find(d => d.id === box.id) as BaseLayer;
           if (layer) {
@@ -113,7 +113,7 @@ export default function View(props: IViewProps) {
         const list = (e as any).current.leafList.list;
         const layers = store.getLayerByIds(list.map(d => d.id));
 
-        // 如果是组，还需要计算children的参数
+        // 그룹인 경우, children의 매개변수도 계산해야 합니다.
         const setGroupChildrenSize = box => {
           const ids = box.children.map(d => d.id);
           const innerLayers = store.getLayerByIds(ids);
@@ -121,7 +121,7 @@ export default function View(props: IViewProps) {
             const inlayer = innerLayers.find(d => d.id === b.id) as any;
             inlayer.width = b.width;
             inlayer.height = b.height;
-            // 如果是文字，还要修改x,y
+            // 텍스트인 경우, x, y도 수정해야 합니다.
             if (inlayer.type === 'text') {
               inlayer.x = b.x;
               inlayer.y = b.y;
@@ -132,7 +132,7 @@ export default function View(props: IViewProps) {
           });
         };
 
-        // 数据同步
+        // 데이터 동기화
         list.forEach(box => {
           const layer = layers.find(d => d.id === box.id) as any;
           if (layer.type === 'text') {
@@ -146,7 +146,7 @@ export default function View(props: IViewProps) {
           if (func) {
             func();
           }
-          // 设置组的子元素的尺寸
+          // 그룹의 자식 요소의 크기 설정
           if (layer.type === 'group') {
             setGroupChildrenSize(box);
           }
@@ -161,7 +161,7 @@ export default function View(props: IViewProps) {
         // console.log('move', e);
         const list = (e as any).current.leafList.list;
         const layers = store.getLayerByIds(list.map(d => d.id));
-        // 数据同步
+        // 데이터 동기화
         list.forEach(box => {
           const layer = layers.find(d => d.id === box.id);
           if (layer) {
@@ -182,7 +182,7 @@ export default function View(props: IViewProps) {
         }
       });
 
-      // 编辑器事件
+      // 편집기 이벤트
       app.editor.on(EditorMoveEvent.SELECT, (e: EditorEvent) => {
         const ids: string[] = [];
         if (e.value) {
@@ -217,10 +217,10 @@ export default function View(props: IViewProps) {
         }
       });
 
-      // 鼠标弹起执行
+      // 마우스 버튼을 놓음
       app.editor.on(DragEvent.UP, e => {
         const elementIds = utils.getIdsFromUI(store.editor.target);
-        console.log('鼠标弹起来????', elementIds);
+        console.log('마우스 버튼을 놓음', elementIds);
         if (elementIds.length) {
           elementIds.forEach(id => {
             const fun = store.elementDragUp[id];
@@ -229,7 +229,7 @@ export default function View(props: IViewProps) {
         }
         store.record?.add({
           type: 'update',
-          desc: '控制器鼠标弹起',
+          desc: '컨트롤러 마우스 버튼을 놓음',
           selecteds: [...elementIds],
         });
         if (props.onDragUp) {
@@ -240,9 +240,9 @@ export default function View(props: IViewProps) {
       new ScrollBar(app as any);
       // new EditorLine(app);
 
-      // 标尺
+      // 눈금자
       const ruler = new Ruler(app as any);
-      // 添加自定义主题
+      // 사용자 정의 테마 추가
       ruler.addTheme('dark2', {
         backgroundColor: '#16161a',
         textColor: 'rgba(255, 255, 255, 0.5)',
@@ -252,7 +252,7 @@ export default function View(props: IViewProps) {
       store.ruler = ruler;
     }
 
-    // 监听容器变化
+    // 컨테이너 변경 사항 모니터링
     const onResize = debounce(() => {
       store.autoViewSize();
     }, 100);

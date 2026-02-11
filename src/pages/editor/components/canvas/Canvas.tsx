@@ -1,18 +1,18 @@
 import styles from './canvas.module.less';
 
 import { useEffect, useState, useReducer } from 'react';
-import { editor } from '@stores/editor';
-// import { useResizeDetector } from 'react-resize-detector';
-import { observer } from 'mobx-react';
-// import $ from 'jquery';
-// import { pubsub } from '@utils/pubsub';
+import { editor } from '@stores/editor'; 
+import { observer } from 'mobx-react'; 
+
 import { View } from '../../core';
+
 import { pubsub } from '@utils/pubsub';
+
 import SetCanvasSize from './SetCanvasSize';
 import ContextMenu from '../contextMenu';
 import { config } from '@config/index';
 
-// 外部插件扩展
+// 외부 플러그인확장장
 import exLayers from '@plugins/index';
 
 export interface IProps {}
@@ -30,7 +30,7 @@ function Canvas(props: IProps) {
     };
   }, []);
 
-  console.log('重新获取page');
+  console.log('다시 페이지 가져오기');
   editor.updateViewKey;
 
   return (
@@ -40,7 +40,7 @@ function Canvas(props: IProps) {
           <View
             resourceHost={config.resourcesHost}
             callback={store => {
-              // 修改ruler主题
+              // 눈금자 테마 수정
               editor.ruler = store.ruler;
               if (editor.themeUpdateKey === 'dark') {
                 editor.ruler.changeTheme('dark2');

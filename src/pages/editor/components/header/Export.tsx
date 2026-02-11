@@ -25,7 +25,7 @@ function Export(props: IProps) {
         className={styles.exportBtn}
         icon={<SendOne theme="filled" size="20" fill="#fff" />}
       >
-        导出
+        내보내기
       </Button>
     </>
   );

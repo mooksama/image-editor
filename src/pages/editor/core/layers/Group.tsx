@@ -26,17 +26,17 @@ export default function GroupComp(props: LayerProps) {
     return group;
   }, []);
 
-  // 公共use
+  // 공통 use
   useLayerBaseStyle(layer, groupBox as any, props.store, props.zIndex);
 
   // useEffect(() => {
-  //   // 设置宽高
+  //   // 너비와 높이 설정
   //   groupBox.width = layer.width;
   //   groupBox.height = layer.height;
   // }, [layer.width, layer.height]);
 
   useEffect(() => {
-    // 调动子组件的更新方法
+    // 자식 컴포넌트의 업데이트 메서드 호출
     props.store.controlSelectFuns[layer.id] = () => {
       layer.childs.forEach(d => {
         if (props.store.controlSelectFuns[d.id]) {
@@ -45,7 +45,7 @@ export default function GroupComp(props: LayerProps) {
       });
     };
 
-    // 调动子组件的更新方法
+    // 자식 컴포넌트의 업데이트 메서드 호출
     props.store.controlScaleFuns[layer.id] = () => {
       layer.childs.forEach(d => {
         if (props.store.controlScaleFuns[d.id]) {

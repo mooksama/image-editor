@@ -19,7 +19,7 @@ function TextContent(props: IProps) {
             console.log(JSON.stringify(elementData.textStyle));
           }}
         >
-          文本
+          텍스트
         </span>
       }
       style={{ margin: '6px 20px' }}
@@ -37,7 +37,7 @@ function TextContent(props: IProps) {
           onBlur={() => {
             editor.record({
               type: 'update',
-              desc: '修改文本内容',
+              desc: '텍스트 내용 수정',
             });
           }}
         />

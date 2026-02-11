@@ -12,7 +12,7 @@ export interface IProps {
   show: boolean;
 }
 
-// 判断是否加载了，只加载一次
+// 로드 여부 판단, 한 번만 로드
 let hasRender = false;
 
 export default function Template(props: IProps) {
@@ -36,7 +36,7 @@ export default function Template(props: IProps) {
           console.log(item);
           const res = await $.get(config.templateHost + '/api/v1/open/templates/' + item.templateId);
           try {
-            // H5DS图片数据兼容
+            // H5DS 이미지 데이터 호환
             const json = util.reJSON(res.data.data.appData).pages[0];
             // console.log('json', json);
             const newPage = formatH5DSImageTemplate(json, item.thumb);
@@ -54,7 +54,7 @@ export default function Template(props: IProps) {
               }, 10);
             });
           } catch (e) {
-            console.error('模版数据解析异常', e);
+            console.error('템플릿 데이터 파싱 오류', e);
           }
           // const json = await $.get(item.url + '?t=' + +new Date());
         }}

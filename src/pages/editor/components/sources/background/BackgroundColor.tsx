@@ -28,13 +28,15 @@ export default function BackgroundColor(props: IProps) {
       {values.map((val, i) => {
         // console.log(`linear-gradient(${val.rotate}deg, ${val.colors.map(d => `${d.p}% ${d.c}`).join(',')})`);
         return (
-          <section
-            onClick={() => setBgColor(val)}
-            key={i}
-            style={{
-              backgroundImage: `linear-gradient(${val.rotate}deg, ${val.colors.map(d => `${d.c} ${d.p}%`).join(',')})`,
-            }}
-          ></section>
+          <Tooltip content={'왼쪽 정렬'}>
+            <section
+              onClick={() => setBgColor(val)}
+              key={i}
+              style={{
+                backgroundImage: `linear-gradient(${val.rotate}deg, ${val.colors.map(d => `${d.c} ${d.p}%`).join(',')})`,
+              }}
+            ></section>
+          </Tooltip>
         );
       })}
     </div>

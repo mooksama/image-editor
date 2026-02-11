@@ -12,7 +12,7 @@ export default function BarcodeComp(props: LayerProps) {
     const img = new Image({
       editable: props.isChild ? false : true,
       url: '',
-      // around: 'center',
+      // 중심으로 정렬
       x: layer.x,
       y: layer.y,
       width: layer.width,
@@ -32,7 +32,7 @@ export default function BarcodeComp(props: LayerProps) {
     return img;
   }, []);
 
-  // 公共use
+  // 공통 use
   useLayerBaseStyle(layer, imgUI as any, props.store, props.zIndex);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function BarcodeComp(props: LayerProps) {
     imgUI.x = layer.x;
     imgUI.y = layer.y;
 
-    // 翻转
+    // 뒤집기
     if (layer.flipx) {
       imgUI.scaleX = -1;
     } else {
@@ -53,12 +53,12 @@ export default function BarcodeComp(props: LayerProps) {
       imgUI.scaleY = 1;
     }
 
-    //圆角
+    // 모서리 반경
     imgUI.cornerRadius = layer.cornerRadius ? [...layer.cornerRadius] : undefined;
   }, [layer.width, layer.height, layer.flipx, layer.flipy, layer.cornerRadius]);
 
   useEffect(() => {
-    console.log('颜色变化---', layer);
+    console.log('색상 변경---', layer);
     const canvas = document.createElement('canvas');
     canvas.width = layer.width;
     canvas.height = layer.height;

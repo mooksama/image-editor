@@ -14,7 +14,7 @@ function LoginMobile({ setShow }: any) {
   const [time, setTime] = useState(60);
 
   const onFinish = async (values: any) => {
-    // 1、登录成功后自动设置x-token
+    // 1. 로그인 성공 후 자동으로 x-token 설정
     // const res = await userService.login({ ...values, captchaKey: captcha.key });
     const [res, err] = await userService.login({
       mobile: values.telphone,
@@ -23,16 +23,16 @@ function LoginMobile({ setShow }: any) {
     });
 
     if (res) {
-      Toast.success('登录成功！');
+      Toast.success('로그인 성공!');
     } else {
       Toast.error(err);
     }
     if (err) {
-      // 切换验证码
+      // 캡차 변경
       getImageKey();
       return;
     }
-    // 2、获取用户详情，设置x-user-info
+    // 2. 사용자 세부 정보 가져오기, x-user-info 설정
     const [userRes, userError] = await userService.getUserDetail();
     if (userRes) {
       (window as any).RouterHistory.push('./manage');
@@ -58,27 +58,27 @@ function LoginMobile({ setShow }: any) {
     formApiRef.current = formApi;
   };
 
-  // 发送手机验证码
+  // SMS 전송
   const sendSMS = async () => {
     console.log('formApiRef.current', formApiRef.current);
     const { telphone, captchaCode } = formApiRef.current.getValues();
     console.log('formApiRef.current', formApiRef.current.getValues());
     if (!/^1\d{10}$/.test(telphone)) {
-      Toast.error('请输入正确的手机号');
+      Toast.error('올바른 전화번호를 입력하세요');
       return;
     }
     if (!captchaCode) {
-      Toast.error({ content: '请输入图形验证码', duration: 10000 });
+      Toast.error({ content: '캡차 코드를 입력하세요', duration: 10000 });
       return;
     }
-    // 发送验证码
+    // 인증 코드 전송
     const [res, err] = await userService.getLoginSMS({
       mobile: telphone,
       captchaCode: captchaCode,
       captchaKey: captcha.key,
     });
     if (res) {
-      Toast.success('验证码已发送，注意查收');
+      Toast.success('인증 코드가 전송되었습니다. 확인하세요');
     } else {
       Toast.error(err);
     }
@@ -107,7 +107,7 @@ function LoginMobile({ setShow }: any) {
   return (
     <div className={styles.loginMobile}>
       <p className={styles.title}>
-        <span className={styles.text}>手机登录</span>
+        <span className={styles.text}>휴대폰 로그인</span>
       </p>
       <Form name="basic" ref={formRef} getFormApi={getFormApi} onSubmit={onFinish}>
         <Row gutter={8} className={styles.fromItem}>
@@ -115,8 +115,8 @@ function LoginMobile({ setShow }: any) {
             <Form.Input
               noLabel
               field="telphone"
-              rules={[{ required: true, message: '请输入手机号' }]}
-              placeholder="请输入手机号"
+              rules={[{ required: true, message: '전화번호를 입력하세요' }]}
+              placeholder="전화번호를 입력하세요"
             />
           </Col>
         </Row>
@@ -125,10 +125,10 @@ function LoginMobile({ setShow }: any) {
             <Form.Input
               noLabel
               field="captchaCode"
-              rules={[{ required: true, message: '请输入图形验证码' }]}
-              placeholder="请输入图形验证码"
+              rules={[{ required: true, message: '캡차 코드를 입력하세요' }]}
+              placeholder="캡차 코드를 입력하세요"
             />
-            {/* <Input  name="captchaCode" placeholder="请输入图形验证码" className={styles.codeNum}/> */}
+
           </Col>
           <Col span={8}>
             <img
@@ -144,20 +144,20 @@ function LoginMobile({ setShow }: any) {
             <Form.Input
               noLabel
               field="phoneCode"
-              rules={[{ required: true, message: '请输入手机验证码' }]}
-              placeholder="手机验证码"
+              rules={[{ required: true, message: '휴대폰 인증 코드를 입력하세요' }]}
+              placeholder="휴대폰 인증 코드"
             />
           </Col>
           <Col span={8}>
             <Button style={{ height: 35 }} block={true} onClick={sendSMS} disabled={time !== 60}>
-              {time === 60 ? '发送验证码' : `${time}秒后重试`}
+              {time === 60 ? '인증 코드 전송' : `${time}초 후 다시 시도`}
             </Button>
           </Col>
         </Row>
         <Row gutter={8} className={styles.fromBtnItem}>
           <Col span={24}>
             <Button type="primary" htmlType="submit" block={true}>
-              立即登录
+              즉시 로그인
             </Button>
           </Col>
         </Row>

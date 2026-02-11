@@ -15,7 +15,7 @@ function Position(props: IProps) {
   editor.updateKey;
 
   return (
-    <Item title="位置">
+    <Item title="위치">
       <div className={styles.position}>
         <InputNumber
           innerButtons
@@ -29,7 +29,7 @@ function Position(props: IProps) {
           onBlur={() => {
             editor.record({
               type: 'update',
-              desc: '修改X',
+              desc: '수정X',
             });
           }}
         />
@@ -45,7 +45,7 @@ function Position(props: IProps) {
           onBlur={() => {
             editor.record({
               type: 'update',
-              desc: '修改Y',
+              desc: '수정Y',
             });
           }}
         />

@@ -11,6 +11,8 @@ const resolve = (url) => path.resolve(__dirname, url);
 export default defineConfig({
   resolve: {
     alias: {
+      '@': resolve('./src'),
+      '@services': resolve('./src/services'),
       '@components': resolve('./src/components'),
       '@server': resolve('./src/server'),
       '@core': resolve('./src/pages/editor/core'),
@@ -27,7 +29,7 @@ export default defineConfig({
       '@less': resolve('./src/less'),
       '@images': resolve('./src/assets/images'),
     },
-    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"], // 省略扩展名
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"], 
   },
   plugins: [
     react({

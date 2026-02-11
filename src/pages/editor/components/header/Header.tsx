@@ -10,13 +10,11 @@ import Login from '@components/login';
 import { useEffect, useReducer, useState } from 'react';
 import { pubsub } from '@utils/pubsub';
 import { util } from '@utils/index';
-import { server } from '../../server';
-// import { IconSpin } from '@douyinfe/semi-icons';
+import { server } from '../../server'; 
 import { IconSun, IconMoon } from '@douyinfe/semi-icons';
-import RecordTest from './RecordTest';
-import { config } from '@config/index';
+ 
 import { ViewData } from '@pages/editor/core/types/data';
-import AboutUs from './AboutUs';
+ 
 import { theme, ThemeName } from '@theme';
 
 export interface IProps {}
@@ -33,7 +31,7 @@ function Header(props: IProps) {
       editor.recordUpdateTestKey = +new Date();
       editor.updateComponent('options');
     } else {
-      Toast.error('已经撤销到最初状态');
+      Toast.error('이미 처음 상태로 되돌렸습니다');
     }
   };
 
@@ -44,7 +42,7 @@ function Header(props: IProps) {
       editor.recordUpdateTestKey = +new Date();
       editor.updateComponent('options');
     } else {
-      Toast.error('已经恢复到最终状态');
+      Toast.error('이미 마지막 상태로 복원되었습니다');
     }
   };
 
@@ -53,14 +51,14 @@ function Header(props: IProps) {
 
     if (!user.info && !noToast) {
       // pubsub.publish('showLoginModal');
-      Toast.error('请先登录');
+      Toast.error('먼저 로그인해주세요');
       return;
     }
     const ndataStr = JSON.stringify(editor.data);
     const ndata = util.toJS(editor.data) as ViewData;
 
     if (editor.lastUpdateAppData === ndataStr) {
-      console.log('数据未变，不用更新');
+      console.log('데이터가 변경되지 않았습니다');
       return;
     }
 
@@ -69,7 +67,7 @@ function Header(props: IProps) {
       // scale: util.toNum(160 / editor.pageData.height, 2),
     });
 
-    // 缩小图片
+    // 이미지 축소
     const minBase = await util.scaleBase64(res.data, util.toNum(160 / editor.pageData.height, 2));
 
     console.log('res', res);
@@ -79,27 +77,27 @@ function Header(props: IProps) {
     });
     console.log('xxx', ires.storage_path);
 
-    // 更新页面
+    // 페이지 업데이트
     editor.pageData.thumb = ires.storage_path;
 
     editor.lastUpdateAppData = ndataStr;
-    // 如果保存的时候没有appid先创建
+    // 저장 시 appid가 없으면 먼저 생성
     if (!editor.appid) {
       const [res, err] = await server.createApp({
-        source_id: '', //来源Id
-        category_id: 0, //分类Id
-        name: ndata.name || '未命名', //名称
-        description: ndata.desc || '未命名', //描述
-        width: ndata.pages[0].width, //宽度
-        height: ndata.pages[0].height, //高度
-        thumb: ires.storage_path, //封面图url
+        source_id: '', //출처 ID
+        category_id: 0, //카테고리 ID
+        name: ndata.name || '이름 없음', //이름
+        description: ndata.desc || '이름 없음', //설명
+        width: ndata.pages[0].width, //너비
+        height: ndata.pages[0].height, //높이
+        thumb: ires.storage_path, //썸네일 URL
         data: ndata,
       });
       if (err) {
         return Toast.error(err);
       }
       editor.appid = res.id;
-      // 设置url
+      // URL 설정
       window.history.pushState(null, null, '/editor/' + res.id);
     } else {
       const [res, err] = await server.updateApp({
@@ -107,8 +105,8 @@ function Header(props: IProps) {
         id: editor.appid,
         name: ndata.name,
         data: ndata,
-        width: ndata.pages[0].width, //宽度
-        height: ndata.pages[0].height, //高度
+        width: ndata.pages[0].width, //너비
+        height: ndata.pages[0].height, //높이
       });
       if (err) {
         return Toast.error(err);
@@ -128,7 +126,7 @@ function Header(props: IProps) {
     pubsub.subscribe('keyboardUndo', undo);
     pubsub.subscribe('keyboardRedo', redo);
 
-    // 每隔30秒自动保存
+    // 30초마다 자동 저장
     const timer = setInterval(() => {
       saveApp(undefined, true);
     }, 1000 * 30);
@@ -145,22 +143,22 @@ function Header(props: IProps) {
     <>
       <div className={styles.header}>
         <section className={styles.left}>
-          <Tooltip content="工程列表">
+          <Tooltip content="프로젝트 목록">
             <a onClick={() => editor.setSourceType('projects')}>
               <FolderCodeOne theme="outline" size="20" fill="var(--theme-icon)" />
             </a>
           </Tooltip>
-          <Tooltip content="多页面">
+          <Tooltip content="다중 페이지">
             <a onClick={() => editor.setSourceType('pages')}>
               <ViewList theme="outline" size="20" fill="var(--theme-icon)" />
             </a>
           </Tooltip>
-          <Tooltip content="图层列表">
+          <Tooltip content="레이어 목록">
             <a onClick={() => editor.setSourceType('layers')}>
               <Layers theme="outline" size="20" fill="var(--theme-icon)" />
             </a>
           </Tooltip>
-          <Tooltip content="保存">
+          <Tooltip content="저장">
             <a style={{ pointerEvents: saveLoading ? 'none' : 'initial' }} onClick={() => saveApp()}>
               {saveLoading ? (
                 <LoadingFour className={styles.loadingAnimate} theme="outline" size="20" fill="var(--theme-icon)" />
@@ -169,18 +167,18 @@ function Header(props: IProps) {
               )}
             </a>
           </Tooltip>
-          <Tooltip content="撤销">
+          <Tooltip content="되돌리기">
             <a onClick={undo}>
               <Return theme="outline" size="20" fill="var(--theme-icon)" />
             </a>
           </Tooltip>
-          <Tooltip content="重做">
+          <Tooltip content="다시 하기">
             <a onClick={redo}>
               <Return style={{ transform: `scaleX(-1)` }} theme="outline" size="20" fill="var(--theme-icon)" />
             </a>
           </Tooltip>
           <input
-            placeholder="项目未命名"
+            placeholder="프로젝트 이름 없음"
             className={styles.title}
             type="text"
             value={editor.data.name}
@@ -192,31 +190,10 @@ function Header(props: IProps) {
         </section>
         {/* <section className={styles.center}></section> */}
         <section className={styles.right}>
-          <AboutUs />
-          <a href="https://github.com/mtsee/image-editor" target="_blank" className={styles.git}>
+ 
+          {/* <a href="https://github.com/mtsee/image-editor" target="_blank" className={styles.git}>
             <Github theme="outline" size="22" fill="var(--theme-icon)" /> &nbsp; Github
-          </a>
-          <a href="https://gitee.com/676015863/image-editor" target="_blank" className={styles.git}>
-            <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-              <path
-                d="M512 960c-246.4 0-448-201.6-448-448s201.6-448 448-448 448 201.6 448 448-201.6 448-448 448z"
-                fill="#D81E06"
-              ></path>
-              <path
-                d="M721.664 467.968h-235.52a22.272 22.272 0 0 0-20.736 20.736v51.776c0 10.368 10.368 20.736 20.736 20.736H628.48c10.368 0 20.736 10.304 20.736 20.672v10.368c0 33.664-28.48 62.08-62.144 62.08H392.896a22.272 22.272 0 0 1-20.672-20.672V436.928c0-33.664 28.48-62.08 62.08-62.08h287.36a22.272 22.272 0 0 0 20.736-20.736v-51.84a22.272 22.272 0 0 0-20.736-20.672h-287.36A152.96 152.96 0 0 0 281.6 434.368v287.36c0 10.304 10.368 20.672 20.736 20.672h302.848c75.072 0 137.216-62.08 137.216-137.216v-116.48a22.272 22.272 0 0 0-20.736-20.736z"
-                fill="#FFFFFF"
-              ></path>
-            </svg>
-            &nbsp; Gitee
-          </a>
-          {/* <Button
-            className={styles.openVipButton}
-            theme="solid"
-            type="tertiary"
-            icon={<VipOne theme="filled" size="20" fill="#FF9431" />}
-          >
-            开通VIP
-          </Button> */}
+          </a>   */}
           <a
             className={styles.git}
             onClick={() => {
@@ -250,13 +227,12 @@ function Header(props: IProps) {
           ) : (
             <Login>
               <Button theme="solid" className={styles.login}>
-                登录/注册
+                로그인/등록
               </Button>
             </Login>
           )}
         </section>
-      </div>
-      {/* {config.env === 'dev' && <RecordTest />} */}
+      </div> 
     </>
   );
 }

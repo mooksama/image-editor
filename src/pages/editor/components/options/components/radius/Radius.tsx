@@ -23,7 +23,7 @@ function Radius(props: IProps) {
 
   return (
     <Item
-      title="圆角"
+      title="원형"
       extra={
         <div className={styles.radiuType}>
           <a
@@ -67,7 +67,7 @@ function Radius(props: IProps) {
               onBlur={() => {
                 editor.record({
                   type: 'update',
-                  desc: '修改圆角',
+                  desc: '원형 수정',
                 });
               }}
             />
@@ -88,7 +88,7 @@ function Radius(props: IProps) {
                 onBlur={() => {
                   editor.record({
                     type: 'update',
-                    desc: '修改圆角',
+                    desc: '원형 수정',
                   });
                 }}
               />
@@ -104,7 +104,7 @@ function Radius(props: IProps) {
                 onBlur={() => {
                   editor.record({
                     type: 'update',
-                    desc: '修改圆角',
+                    desc: '원형 수정',
                   });
                 }}
               />
@@ -124,7 +124,7 @@ function Radius(props: IProps) {
                   forceUpdate();
                   editor.record({
                     type: 'update',
-                    desc: '修改圆角',
+                    desc: '원형 수정',
                   });
                 }}
               />
@@ -142,7 +142,7 @@ function Radius(props: IProps) {
                   forceUpdate();
                   editor.record({
                     type: 'update',
-                    desc: '修改圆角',
+                    desc: '원형 수정',
                   });
                 }}
               />
